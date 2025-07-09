@@ -72,7 +72,7 @@ jobs:
         run: npm ci
 
       - name: Build web version
-        run: npx expo export:web
+        run: npx expo export
 
       # Pour les builds natifs, vous pouvez utiliser EAS Build
       # Décommentez les lignes suivantes si vous souhaitez configurer des builds natifs

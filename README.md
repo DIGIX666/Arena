@@ -1,4 +1,4 @@
-## dApp Sports betting
+## DApp Sports - Fan-Token-Utility
 
 ## Introduction
 

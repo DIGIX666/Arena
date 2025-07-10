@@ -1,6 +1,8 @@
-import { ethers } from "hardhat";
+import hre from "hardhat";
 
 async function main() {
+      const {ethers} = hre;
+
   const [deployer] = await ethers.getSigners();
   console.log("Déploiement des contrats avec le compte :", deployer.address);
   console.log("----------------------------------------------------");

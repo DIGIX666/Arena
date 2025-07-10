@@ -1,6 +1,7 @@
+import "dotenv/config"; 
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
-import "dotenv/config"; // Important : Importez dotenv/config tout en haut
+
 
 const spicyPrivateKey = process.env.SPICY_PRIVATE_KEY || "";
 

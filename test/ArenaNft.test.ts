@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import hre from "hardhat";
-import { Signer } from "ethers";
+
 import { time } from "@nomicfoundation/hardhat-network-helpers";
 
 describe("ArenaNFT", function () {

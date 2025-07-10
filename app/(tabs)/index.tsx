@@ -1,23 +1,28 @@
-import { ThemedText } from '@/components/ThemedText';
+// app/(tabs)/index.tsx
 import { ThemedView } from '@/components/ThemedView';
-import { Image, StyleSheet } from 'react-native';
+import { Header } from '@/components/home/Header';
+import { PopularDuels } from '@/components/home/PopularDuels';
+import { SurveySection } from '@/components/home/SurveySection';
+import { TopCashPrize } from '@/components/home/TopCashPrize';
+import { spacing } from '@/utils/responsive';
+import { ScrollView, StatusBar, StyleSheet } from 'react-native';
 
 export default function HomeScreen() {
   return (
     <ThemedView style={styles.container}>
-      <ThemedText type="title" style={styles.title}>
-        Welcome to Arena!
-      </ThemedText>
-      
-      {/* Add your profile image here */}
-      <Image 
-        source={require('@/assets/images/profile.png')} // Replace with your image name
-        style={styles.profileImage}
-      />
-      
-      <ThemedText style={styles.subtitle}>
-        Your app is ready to build!
-      </ThemedText>
+      <StatusBar barStyle="light-content" backgroundColor="#151B23" />
+      <ScrollView 
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+        bounces={true}
+      >
+        <Header userName="user777" />
+        <SurveySection />
+        <TopCashPrize />
+        <PopularDuels />
+        <ThemedView style={styles.bottomPadding} />
+      </ScrollView>
     </ThemedView>
   );
 }
@@ -25,21 +30,18 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
+    backgroundColor: '#151B23', // Dark blue background like in image
   },
-  title: {
-    marginBottom: 20,
+  scrollView: {
+    flex: 1,
+    backgroundColor: '#151B23',
   },
-  profileImage: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    marginVertical: 20,
+  scrollContent: {
+    flexGrow: 1,
+    paddingBottom: 120,
   },
-  subtitle: {
-    textAlign: 'center',
-    fontSize: 16,
+  bottomPadding: {
+    height: spacing.xxxl,
+    backgroundColor: '#151B23',
   },
 });

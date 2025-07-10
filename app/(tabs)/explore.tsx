@@ -1,3 +1,4 @@
+// app/(tabs)/explore.tsx
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { StyleSheet } from 'react-native';
@@ -5,13 +6,7 @@ import { StyleSheet } from 'react-native';
 export default function ExploreScreen() {
   return (
     <ThemedView style={styles.container}>
-      <ThemedText type="title" style={styles.title}>
-        Explore
-      </ThemedText>
-      
-      <ThemedText style={styles.subtitle}>
-        This is the explore tab. Add your content here!
-      </ThemedText>
+      <ThemedText style={styles.title}>Explore</ThemedText>
     </ThemedView>
   );
 }
@@ -19,15 +14,13 @@ export default function ExploreScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    backgroundColor: '#151B23',
     justifyContent: 'center',
-    padding: 20,
+    alignItems: 'center',
   },
   title: {
-    marginBottom: 20,
-  },
-  subtitle: {
-    textAlign: 'center',
-    fontSize: 16,
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
   },
 });

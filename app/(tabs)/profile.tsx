@@ -1,10 +1,26 @@
-import React from 'react';
-import { Text, View } from 'react-native';
+// app/(tabs)/profile.tsx
+import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
+import { StyleSheet } from 'react-native';
 
 export default function ProfileScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Bienvenue sur la page Profil</Text>
-    </View>
+    <ThemedView style={styles.container}>
+      <ThemedText style={styles.title}>Profile</ThemedText>
+    </ThemedView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#151B23',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+  },
+});

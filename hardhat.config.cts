@@ -1,6 +1,6 @@
-import "dotenv/config"; 
-import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
+import "dotenv/config";
+import { HardhatUserConfig } from "hardhat/config";
 
 
 const spicyPrivateKey = process.env.SPICY_PRIVATE_KEY || "";
@@ -31,7 +31,6 @@ const config: HardhatUserConfig = {
   },
   paths: {
     sources: "./contracts",
-    include: ["Arena.sol"], 
   },
 };
 export default config;

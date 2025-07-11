@@ -4,18 +4,19 @@ import { Header } from '@/components/home/Header';
 import { PopularDuels } from '@/components/home/PopularDuels';
 import { SurveySection } from '@/components/home/SurveySection';
 import { TopCashPrize } from '@/components/home/TopCashPrize';
-import { spacing } from '@/utils/responsive';
+import { colors, spacing } from '@/components/styles';
 import { ScrollView, StatusBar, StyleSheet } from 'react-native';
 
 export default function HomeScreen() {
   return (
     <ThemedView style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#151B23" />
+      <StatusBar barStyle="light-content" backgroundColor={colors.background.primary} />
       <ScrollView 
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
         bounces={true}
+        decelerationRate="normal"
       >
         <Header userName="user777" />
         <SurveySection />
@@ -30,18 +31,18 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#151B23', // Dark blue background like in image
+    backgroundColor: colors.background.primary,
   },
   scrollView: {
     flex: 1,
-    backgroundColor: '#151B23',
+    backgroundColor: colors.background.primary,
   },
   scrollContent: {
     flexGrow: 1,
-    paddingBottom: 120,
+    paddingBottom: spacing['6xl'],
   },
   bottomPadding: {
-    height: spacing.xxxl,
-    backgroundColor: '#151B23',
+    height: spacing['6xl'],
+    backgroundColor: colors.background.primary,
   },
 });

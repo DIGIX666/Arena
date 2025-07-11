@@ -1,74 +1,82 @@
-// styles/header.ts
-import { spacing } from '@/utils/responsive';
+// components/styles/header.ts
 import { StyleSheet } from 'react-native';
+import { borderRadius, colors, spacing, typography } from './designSystem';
 
 export const headerStyles = StyleSheet.create({
   safeArea: {
-    backgroundColor: '#151B23',
+    backgroundColor: colors.background.primary,
   },
   header: {
     paddingHorizontal: spacing.xl,
-    paddingBottom: spacing.xl,
-    backgroundColor: '#151B23',
+    paddingTop: spacing.md,
+    paddingBottom: spacing['2xl'],
+    backgroundColor: colors.background.primary,
   },
   headerContent: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    minHeight: 80,
-    paddingTop: spacing.md,
+    alignItems: 'center',
+    minHeight: 64,
   },
   logoContainer: {
     flex: 1,
-    justifyContent: 'center',
+    paddingRight: spacing.lg,
   },
-  logo: {
-    color: '#FFFFFF',
-    fontSize: 32,
-    fontWeight: '800',
-    letterSpacing: 2,
+  logoImage: {
+    width: 140,
+    height: 48,
+    tintColor: colors.accent.primary,
   },
   rightSection: {
     alignItems: 'flex-end',
-    justifyContent: 'center',
+    gap: spacing.md,
   },
   userInfo: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: spacing.lg,
+    backgroundColor: colors.background.tertiary,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    borderRadius: borderRadius.lg,
+    borderWidth: 1,
+    borderColor: colors.surface.elevated,
+    ...colors.shadows.subtle,
   },
   profileIcon: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: '#333333',
+    width: 28,
+    height: 28,
+    borderRadius: borderRadius.sm,
+    backgroundColor: colors.accent.primary,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: spacing.sm,
   },
   profileText: {
-    fontSize: 16,
-    color: '#FFFFFF',
+    fontSize: typography.sizes.sm,
+    color: colors.text.primary,
   },
   userName: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '600',
+    color: colors.text.primary,
+    fontSize: typography.sizes.sm,
+    fontWeight: typography.weights.medium,
   },
   createButton: {
-    backgroundColor: 'rgba(0, 122, 255, 0.8)',
+    backgroundColor: colors.accent.primary,
     paddingHorizontal: spacing.xl,
     paddingVertical: spacing.md,
-    borderRadius: 25,
+    borderRadius: borderRadius.lg,
     minHeight: 44,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'rgba(0, 122, 255, 0.3)',
+    ...colors.shadows.soft,
+  },
+  createButtonPressed: {
+    backgroundColor: colors.surface.pressed,
+    opacity: 0.9,
   },
   createButtonText: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '600',
+    color: colors.text.primary,
+    fontSize: typography.sizes.base,
+    fontWeight: typography.weights.semibold,
   },
 });

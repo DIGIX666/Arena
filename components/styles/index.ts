@@ -1,7 +1,7 @@
-// styles/index.ts
-export * from './common';
-export * from './duelCard';
-export * from './header';
-export * from './popularDuels';
-export * from './surveySection';
-export * from './topCashPrize';
+// components/styles/index.ts
+export { commonStyles } from './common';
+export * from './designSystem';
+export { headerStyles } from './header';
+export { popularDuelsStyles } from './popularDuels';
+export { surveySectionStyles } from './surveySection';
+export { topCashPrizeStyles } from './topCashPrize';

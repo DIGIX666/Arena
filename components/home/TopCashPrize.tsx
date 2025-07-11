@@ -1,36 +1,20 @@
 // components/home/TopCashPrize.tsx
-import { ThemedText } from '@/components/ThemedText';
-import React, { useRef, useState } from 'react';
-import { Dimensions, ScrollView, View } from 'react-native';
-import { topCashPrizeStyles } from '../styles/topCashPrize';
+import React, { useState } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { theme } from '../styles/theme';
+import { Card } from '../ui/Card';
+import { Typography } from '../ui/Typography';
 
-const { width } = Dimensions.get('window');
-const CARD_WIDTH = width - 80; // Account for padding
+const CARD_WIDTH = theme.dimensions.cardWidth;
 
 const prizeData = [
-  {
-    id: 1,
-    league: 'Champions League',
-    amount: '$ 26,000',
-    label: 'Total Prize Pool',
-  },
-  {
-    id: 2,
-    league: 'Premier League',
-    amount: '$ 18,500',
-    label: 'Weekly Prize',
-  },
-  {
-    id: 3,
-    league: 'La Liga',
-    amount: '$ 15,200',
-    label: 'Monthly Reward',
-  },
+  { id: 1, league: 'Champions League', amount: '$ 26,000', label: 'Total Prize Pool' },
+  { id: 2, league: 'Premier League', amount: '$ 18,500', label: 'Weekly Prize' },
+  { id: 3, league: 'La Liga', amount: '$ 15,200', label: 'Monthly Reward' },
 ];
 
-export function TopCashPrize() {
+export const TopCashPrize = React.memo(() => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const scrollViewRef = useRef<ScrollView>(null);
 
   const handleScroll = (event: any) => {
     const scrollPosition = event.nativeEvent.contentOffset.x;
@@ -39,14 +23,13 @@ export function TopCashPrize() {
   };
 
   return (
-    <View style={topCashPrizeStyles.container}>
-      <ThemedText style={topCashPrizeStyles.title}>
+    <View style={styles.container}>
+      <Typography variant="h2" style={styles.title}>
         Top Cash Prize Arenas
-      </ThemedText>
+      </Typography>
       
-      <View style={topCashPrizeStyles.carouselContainer}>
+      <View style={styles.carouselContainer}>
         <ScrollView
-          ref={scrollViewRef}
           horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}
@@ -54,43 +37,102 @@ export function TopCashPrize() {
           scrollEventThrottle={16}
           snapToInterval={CARD_WIDTH}
           decelerationRate="fast"
-          contentContainerStyle={{ paddingHorizontal: 20 }}
+          contentContainerStyle={styles.scrollContent}
         >
           {prizeData.map((prize, index) => (
-            <View
+            <Card
               key={prize.id}
-              style={[
-                topCashPrizeStyles.prizeCard,
+              variant={activeIndex === index ? 'elevated' : 'default'}
+              style={Object.assign(
+                {},
+                styles.prizeCard,
                 { width: CARD_WIDTH },
-                activeIndex === index && topCashPrizeStyles.activeCard,
-              ]}
+                activeIndex === index ? styles.activeCard : undefined
+              )}
             >
-              <ThemedText style={topCashPrizeStyles.leagueTitle}>
+              <Typography variant="body" color="secondary" style={styles.leagueTitle}>
                 {prize.league}
-              </ThemedText>
-              <ThemedText style={topCashPrizeStyles.prizeAmount}>
+              </Typography>
+              <Typography variant="h1" color="accent" style={styles.prizeAmount}>
                 {prize.amount}
-              </ThemedText>
-              <ThemedText style={topCashPrizeStyles.prizeLabel}>
+              </Typography>
+              <Typography variant="caption" color="tertiary" style={styles.prizeLabel}>
                 {prize.label}
-              </ThemedText>
-            </View>
+              </Typography>
+            </Card>
           ))}
         </ScrollView>
       </View>
 
-      {/* Dots Indicator */}
-      <View style={topCashPrizeStyles.dotsContainer}>
+      <View style={styles.dotsContainer}>
         {prizeData.map((_, index) => (
           <View
             key={index}
             style={[
-              topCashPrizeStyles.dot,
-              activeIndex === index && topCashPrizeStyles.activeDot,
+              styles.dot,
+              activeIndex === index && styles.activeDot,
             ]}
           />
         ))}
       </View>
     </View>
   );
-}
+});
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: theme.spacing.xl,
+    marginBottom: theme.spacing['4xl'],
+  },
+  title: {
+    marginBottom: theme.spacing['2xl'],
+  },
+  carouselContainer: {
+    height: 200,
+  },
+  scrollContent: {
+    paddingHorizontal: theme.spacing.lg,
+  },
+  prizeCard: {
+    marginHorizontal: theme.spacing.sm,
+    minHeight: 180,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  activeCard: {
+    borderColor: theme.colors.accent.primary,
+    ...theme.shadows.glow,
+  },
+  leagueTitle: {
+    marginBottom: theme.spacing.lg,
+    textAlign: 'center',
+    letterSpacing: 0.5,
+  },
+  prizeAmount: {
+    textAlign: 'center',
+    letterSpacing: -1,
+  },
+  prizeLabel: {
+    marginTop: theme.spacing.sm,
+    textAlign: 'center',
+  },
+  dotsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: theme.spacing.lg,
+    gap: theme.spacing.sm,
+  },
+  dot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: theme.colors.tertiary,
+    opacity: 0.5,
+  },
+  activeDot: {
+    backgroundColor: theme.colors.accent.primary,
+    width: 20,
+    opacity: 1,
+  },
+});

@@ -1,12 +1,12 @@
-// app/(tabs)/explore.tsx
+// app/(tabs)/profile.tsx
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { StyleSheet } from 'react-native';
 
-export default function ExploreScreen() {
+export default function ProfileScreen() {
   return (
     <ThemedView style={styles.container}>
-      <ThemedText style={styles.title}>Explore</ThemedText>
+      <ThemedText style={styles.title}>Profile</ThemedText>
     </ThemedView>
   );
 }

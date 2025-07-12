@@ -1,12 +1,8 @@
-import "dotenv/config"; 
-import { HardhatUserConfig } from "hardhat/config";
-import "@nomicfoundation/hardhat-toolbox";
-
+require("dotenv/config");
+require("@nomicfoundation/hardhat-toolbox");
 
 const spicyPrivateKey = process.env.SPICY_PRIVATE_KEY || "";
-
-
-const config: HardhatUserConfig = {
+const config = {
   solidity: {
     compilers: [
       {
@@ -18,20 +14,23 @@ const config: HardhatUserConfig = {
           },
         },
       },
-
     ],
   },
   networks: {
     spicy: {
       url: "https://spicy-rpc.chiliz.com/",
-      accounts: [spicyPrivateKey], 
-       
+      accounts: spicyPrivateKey ? [spicyPrivateKey] : [],
       chainId: 88882,
+      gas: 8000000,
+      gasPrice: 100000000000,
     },
   },
   paths: {
     sources: "./contracts",
-    include: ["Arena.sol"], 
+    tests: "./test",
+    cache: "./cache",
+    artifacts: "./artifacts"
   },
 };
-export default config;
+
+module.exports = config;

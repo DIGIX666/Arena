@@ -63,13 +63,13 @@ export function PopularDuels() {
               {currentDuel.participants.toLocaleString()} participants
             </ThemedText>
             <ThemedText style={popularDuelsStyles.prizePot}>
-              💰 Pot $ {currentDuel.pot.toLocaleString()}
+              Pot $ {currentDuel.pot.toLocaleString()}
             </ThemedText>
           </View>
           
           <View style={popularDuelsStyles.rightSection}>
             <View style={popularDuelsStyles.teamsContainer}>
-              <View style={popularDuelsStyles.teamLogoContainer}>
+              <View style={[popularDuelsStyles.teamLogoContainer, { zIndex: 1 }]}>
                 <Image 
                   source={currentDuel.team1.logo}
                   style={popularDuelsStyles.teamLogo}
@@ -79,7 +79,7 @@ export function PopularDuels() {
               
               <ThemedText style={popularDuelsStyles.vs}>VS</ThemedText>
               
-              <View style={popularDuelsStyles.teamLogoContainer}>
+              <View style={[popularDuelsStyles.teamLogoContainer, { zIndex: 2, marginLeft: -10 }]}>
                 <Image 
                   source={currentDuel.team2.logo}
                   style={popularDuelsStyles.teamLogo}
@@ -97,7 +97,7 @@ export function PopularDuels() {
             onPress={handleVotePress}
           >
             <ThemedText style={popularDuelsStyles.voteButtonText}>
-              🗳️ Vote in this duel →
+              Vote in this duel →
             </ThemedText>
           </TouchableOpacity>
         </Animated.View>

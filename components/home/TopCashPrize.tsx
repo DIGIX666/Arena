@@ -93,10 +93,10 @@ const styles = StyleSheet.create({
     height: 200,
   },
   scrollContent: {
-    paddingHorizontal: theme.spacing.lg,
+    paddingHorizontal: 0,
   },
   prizeCard: {
-    marginHorizontal: theme.spacing.sm,
+    marginHorizontal: 0,
     minHeight: 180,
     justifyContent: 'center',
     alignItems: 'center',

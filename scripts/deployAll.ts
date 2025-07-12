@@ -31,7 +31,16 @@ async function main() {
 
   console.log("----------------------------------------------------");
 
-  // 3. Déployer le contrat ArenaNFT
+  // 3. Déployer le contrat SimpleDuel
+  const SimpleDuel = await ethers.getContractFactory("SimpleDuel");
+  const simpleDuelContract = await SimpleDuel.deploy(bettingTokenAddress, fanTokenAddress, 18, 18);
+  await simpleDuelContract.waitForDeployment();
+  const simpleDuelAddress = await simpleDuelContract.getAddress();
+  console.log(`✅ Contrat SimpleDuel déployé à l'adresse : ${simpleDuelAddress}`);
+
+  console.log("----------------------------------------------------");
+
+  // 4. Déployer le contrat ArenaNFT
   const ArenaNFT = await ethers.getContractFactory("ArenaNFT");
   // Le constructeur de ArenaNFT prend le nom, le symbole, et l'adresse du signataire (on utilise le déployeur pour le test)
   const nftContract = await ArenaNFT.deploy("BetFi Exclusive NFT", "BFE", deployer.address);
@@ -40,7 +49,7 @@ async function main() {
   console.log(`✅ Contrat ArenaNFT déployé à l'adresse : ${nftArenaAddress}`);
   console.log("----------------------------------------------------");
 
-  // 4. Distribuer des tokens de test (montants réduits pour économiser)
+  // 5. Distribuer des tokens de test (montants réduits pour économiser)
   const mintAmount = ethers.parseEther("100"); // 100 tokens au lieu de plus
   await bettingToken.mint(deployer.address, mintAmount);
   await fanToken.mint(deployer.address, mintAmount);

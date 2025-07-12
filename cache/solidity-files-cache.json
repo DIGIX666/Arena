@@ -1,8 +1,8 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/home/zxfae/Arena/contracts/Arena.sol": {
-      "lastModificationDate": 1752140046148,
+    "/home/zxfae/clone/Arena/contracts/Arena.sol": {
+      "lastModificationDate": 1752240724256,
       "contentHash": "3dc69e455c5b5eabb15305b6b1ea0320",
       "sourceName": "contracts/Arena.sol",
       "solcConfig": {
@@ -41,8 +41,8 @@
         "BetFiArenaV2"
       ]
     },
-    "/home/zxfae/Arena/node_modules/@openzeppelin/contracts/access/Ownable.sol": {
-      "lastModificationDate": 1752140253706,
+    "/home/zxfae/clone/Arena/node_modules/@openzeppelin/contracts/access/Ownable.sol": {
+      "lastModificationDate": 1752241591441,
       "contentHash": "5a20b2cad87ddb61c7a3a6af21289e28",
       "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
       "solcConfig": {
@@ -79,8 +79,8 @@
         "Ownable"
       ]
     },
-    "/home/zxfae/Arena/node_modules/@openzeppelin/contracts/security/ReentrancyGuard.sol": {
-      "lastModificationDate": 1752140253710,
+    "/home/zxfae/clone/Arena/node_modules/@openzeppelin/contracts/security/ReentrancyGuard.sol": {
+      "lastModificationDate": 1752241591454,
       "contentHash": "1535f8c0c68463f8c1b5239f7584e71f",
       "sourceName": "@openzeppelin/contracts/security/ReentrancyGuard.sol",
       "solcConfig": {
@@ -115,8 +115,8 @@
         "ReentrancyGuard"
       ]
     },
-    "/home/zxfae/Arena/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol": {
-      "lastModificationDate": 1752140253684,
+    "/home/zxfae/clone/Arena/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+      "lastModificationDate": 1752241591338,
       "contentHash": "df36f7051335cd1e748b1b6463b7fdd3",
       "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
       "solcConfig": {
@@ -151,8 +151,8 @@
         "IERC20"
       ]
     },
-    "/home/zxfae/Arena/node_modules/@openzeppelin/contracts/utils/Context.sol": {
-      "lastModificationDate": 1752140253598,
+    "/home/zxfae/clone/Arena/node_modules/@openzeppelin/contracts/utils/Context.sol": {
+      "lastModificationDate": 1752241590971,
       "contentHash": "f07feb4a44b1a4872370da5aa70e8e46",
       "sourceName": "@openzeppelin/contracts/utils/Context.sol",
       "solcConfig": {
@@ -187,8 +187,8 @@
         "Context"
       ]
     },
-    "/home/zxfae/Arena/node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol": {
-      "lastModificationDate": 1752140253685,
+    "/home/zxfae/clone/Arena/node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol": {
+      "lastModificationDate": 1752241591340,
       "contentHash": "909ab67fc5c25033fe6cd364f8c056f9",
       "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol",
       "solcConfig": {
@@ -225,8 +225,8 @@
         "IERC20Metadata"
       ]
     },
-    "/home/zxfae/Arena/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol": {
-      "lastModificationDate": 1752140253643,
+    "/home/zxfae/clone/Arena/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol": {
+      "lastModificationDate": 1752241591150,
       "contentHash": "3ae5166c6827a9cf1a7a462d1632b464",
       "sourceName": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
       "solcConfig": {
@@ -265,8 +265,8 @@
         "ERC20"
       ]
     },
-    "/home/zxfae/Arena/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol": {
-      "lastModificationDate": 1752140253655,
+    "/home/zxfae/clone/Arena/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol": {
+      "lastModificationDate": 1752241591218,
       "contentHash": "95602b04f0b53f1139f4668d123ddeb7",
       "sourceName": "@openzeppelin/contracts/token/ERC721/ERC721.sol",
       "solcConfig": {
@@ -309,8 +309,8 @@
         "ERC721"
       ]
     },
-    "/home/zxfae/Arena/node_modules/@openzeppelin/contracts/utils/Address.sol": {
-      "lastModificationDate": 1752140253587,
+    "/home/zxfae/clone/Arena/node_modules/@openzeppelin/contracts/utils/Address.sol": {
+      "lastModificationDate": 1752241590923,
       "contentHash": "211ffd288c1588ba8c10eae668ca3c66",
       "sourceName": "@openzeppelin/contracts/utils/Address.sol",
       "solcConfig": {
@@ -345,8 +345,8 @@
         "Address"
       ]
     },
-    "/home/zxfae/Arena/node_modules/@openzeppelin/contracts/utils/Strings.sol": {
-      "lastModificationDate": 1752140253717,
+    "/home/zxfae/clone/Arena/node_modules/@openzeppelin/contracts/utils/Strings.sol": {
+      "lastModificationDate": 1752241591477,
       "contentHash": "48686fc32a22a3754b8e63321857dd2a",
       "sourceName": "@openzeppelin/contracts/utils/Strings.sol",
       "solcConfig": {
@@ -384,8 +384,8 @@
         "Strings"
       ]
     },
-    "/home/zxfae/Arena/node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol": {
-      "lastModificationDate": 1752140253637,
+    "/home/zxfae/clone/Arena/node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol": {
+      "lastModificationDate": 1752241591124,
       "contentHash": "0e7db055ce108f9da7bb6686a00287c0",
       "sourceName": "@openzeppelin/contracts/utils/introspection/ERC165.sol",
       "solcConfig": {
@@ -422,44 +422,8 @@
         "ERC165"
       ]
     },
-    "/home/zxfae/Arena/node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol": {
-      "lastModificationDate": 1752140253694,
-      "contentHash": "c22d4395e33763de693fd440c6fd10e1",
-      "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
-      "solcConfig": {
-        "version": "0.8.20",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "IERC721Receiver"
-      ]
-    },
-    "/home/zxfae/Arena/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol": {
-      "lastModificationDate": 1752140253691,
+    "/home/zxfae/clone/Arena/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol": {
+      "lastModificationDate": 1752241591365,
       "contentHash": "48de4c9a3a4ae5ef66a2aa620843413f",
       "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721.sol",
       "solcConfig": {
@@ -496,8 +460,44 @@
         "IERC721"
       ]
     },
-    "/home/zxfae/Arena/node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol": {
-      "lastModificationDate": 1752140253693,
+    "/home/zxfae/clone/Arena/node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol": {
+      "lastModificationDate": 1752241591388,
+      "contentHash": "c22d4395e33763de693fd440c6fd10e1",
+      "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC721Receiver"
+      ]
+    },
+    "/home/zxfae/clone/Arena/node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol": {
+      "lastModificationDate": 1752241591373,
       "contentHash": "efbc0d15b80a74e34dbe8da0f3e879bb",
       "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
       "solcConfig": {
@@ -534,8 +534,8 @@
         "IERC721Metadata"
       ]
     },
-    "/home/zxfae/Arena/node_modules/@openzeppelin/contracts/utils/math/Math.sol": {
-      "lastModificationDate": 1752140253703,
+    "/home/zxfae/clone/Arena/node_modules/@openzeppelin/contracts/utils/math/Math.sol": {
+      "lastModificationDate": 1752241591432,
       "contentHash": "fe63409d8a06818b926cf89e0ea88b1b",
       "sourceName": "@openzeppelin/contracts/utils/math/Math.sol",
       "solcConfig": {
@@ -570,8 +570,8 @@
         "Math"
       ]
     },
-    "/home/zxfae/Arena/node_modules/@openzeppelin/contracts/utils/math/SignedMath.sol": {
-      "lastModificationDate": 1752140253715,
+    "/home/zxfae/clone/Arena/node_modules/@openzeppelin/contracts/utils/math/SignedMath.sol": {
+      "lastModificationDate": 1752241591471,
       "contentHash": "9488ebd4daacfee8ad04811600d7d061",
       "sourceName": "@openzeppelin/contracts/utils/math/SignedMath.sol",
       "solcConfig": {
@@ -606,8 +606,8 @@
         "SignedMath"
       ]
     },
-    "/home/zxfae/Arena/node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol": {
-      "lastModificationDate": 1752140253682,
+    "/home/zxfae/clone/Arena/node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol": {
+      "lastModificationDate": 1752241591329,
       "contentHash": "03e6768535ac4da0e9756f1d8a4a018a",
       "sourceName": "@openzeppelin/contracts/utils/introspection/IERC165.sol",
       "solcConfig": {
@@ -642,8 +642,8 @@
         "IERC165"
       ]
     },
-    "/home/zxfae/Arena/node_modules/@openzeppelin/contracts/utils/cryptography/ECDSA.sol": {
-      "lastModificationDate": 1752140253616,
+    "/home/zxfae/clone/Arena/node_modules/@openzeppelin/contracts/utils/cryptography/ECDSA.sol": {
+      "lastModificationDate": 1752241591065,
       "contentHash": "d822a8a9468649cab463f29f5decf5cc",
       "sourceName": "@openzeppelin/contracts/utils/cryptography/ECDSA.sol",
       "solcConfig": {
@@ -680,8 +680,8 @@
         "ECDSA"
       ]
     },
-    "/home/zxfae/Arena/node_modules/@openzeppelin/contracts/utils/cryptography/EIP712.sol": {
-      "lastModificationDate": 1752140253617,
+    "/home/zxfae/clone/Arena/node_modules/@openzeppelin/contracts/utils/cryptography/EIP712.sol": {
+      "lastModificationDate": 1752241591069,
       "contentHash": "459aeb9cc3fc3c6d67d30ffefb724aba",
       "sourceName": "@openzeppelin/contracts/utils/cryptography/EIP712.sol",
       "solcConfig": {
@@ -720,8 +720,8 @@
         "EIP712"
       ]
     },
-    "/home/zxfae/Arena/node_modules/@openzeppelin/contracts/utils/ShortStrings.sol": {
-      "lastModificationDate": 1752140253714,
+    "/home/zxfae/clone/Arena/node_modules/@openzeppelin/contracts/utils/ShortStrings.sol": {
+      "lastModificationDate": 1752241591469,
       "contentHash": "8dde288da49722a70f34ee369be4bfba",
       "sourceName": "@openzeppelin/contracts/utils/ShortStrings.sol",
       "solcConfig": {
@@ -758,8 +758,8 @@
         "ShortStrings"
       ]
     },
-    "/home/zxfae/Arena/node_modules/@openzeppelin/contracts/interfaces/IERC5267.sol": {
-      "lastModificationDate": 1752140253689,
+    "/home/zxfae/clone/Arena/node_modules/@openzeppelin/contracts/interfaces/IERC5267.sol": {
+      "lastModificationDate": 1752241591356,
       "contentHash": "b1756048024350a162c3be27c04aa652",
       "sourceName": "@openzeppelin/contracts/interfaces/IERC5267.sol",
       "solcConfig": {
@@ -794,8 +794,8 @@
         "IERC5267"
       ]
     },
-    "/home/zxfae/Arena/node_modules/@openzeppelin/contracts/utils/StorageSlot.sol": {
-      "lastModificationDate": 1752140253716,
+    "/home/zxfae/clone/Arena/node_modules/@openzeppelin/contracts/utils/StorageSlot.sol": {
+      "lastModificationDate": 1752241591475,
       "contentHash": "682f7dd1f2e1147c8390e7575deceb2d",
       "sourceName": "@openzeppelin/contracts/utils/StorageSlot.sol",
       "solcConfig": {
@@ -830,9 +830,9 @@
         "StorageSlot"
       ]
     },
-    "/home/zxfae/Arena/contracts/ArenaNft.sol": {
-      "lastModificationDate": 1752140046148,
-      "contentHash": "2cd8e4ab6a1b1b8c4de07aa5ab8259d2",
+    "/home/zxfae/clone/Arena/contracts/ArenaNft.sol": {
+      "lastModificationDate": 1752305099123,
+      "contentHash": "d308399c6b8f39133061a10362efcdca",
       "sourceName": "contracts/ArenaNft.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -861,7 +861,8 @@
       "imports": [
         "@openzeppelin/contracts/token/ERC721/ERC721.sol",
         "@openzeppelin/contracts/access/Ownable.sol",
-        "@openzeppelin/contracts/utils/cryptography/EIP712.sol"
+        "@openzeppelin/contracts/utils/cryptography/EIP712.sol",
+        "@openzeppelin/contracts/utils/cryptography/ECDSA.sol"
       ],
       "versionPragmas": [
         "^0.8.20"
@@ -870,9 +871,88 @@
         "ArenaNFT"
       ]
     },
-    "/home/zxfae/Arena/contracts/mocks/ERC20Mock.sol": {
-      "lastModificationDate": 1752140046148,
-      "contentHash": "e0f529b11c630ae36796fe407c757411",
+    "/home/zxfae/clone/Arena/contracts/SimpleDuel.sol": {
+      "lastModificationDate": 1752275980726,
+      "contentHash": "78ac100c2cc444ec199ea50d63110163",
+      "sourceName": "contracts/SimpleDuel.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+        "@openzeppelin/contracts/security/Pausable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "SimpleDuel"
+      ]
+    },
+    "/home/zxfae/clone/Arena/node_modules/@openzeppelin/contracts/security/Pausable.sol": {
+      "lastModificationDate": 1752241591444,
+      "contentHash": "25c8108f36fdd472bc78d4c4af240c11",
+      "sourceName": "@openzeppelin/contracts/security/Pausable.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Pausable"
+      ]
+    },
+    "/home/zxfae/clone/Arena/contracts/mocks/ERC20Mock.sol": {
+      "lastModificationDate": 1752264283332,
+      "contentHash": "89cb178565b4ab33362fd87d14bb585e",
       "sourceName": "contracts/mocks/ERC20Mock.sol",
       "solcConfig": {
         "version": "0.8.20",

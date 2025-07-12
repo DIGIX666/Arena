@@ -79,6 +79,8 @@ export const TopCashPrize = React.memo(() => {
   );
 });
 
+TopCashPrize.displayName = 'TopCashPrize';
+
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: theme.spacing.xl,

@@ -44,6 +44,8 @@ export const Typography = React.memo<TypographyProps>(({
   );
 });
 
+Typography.displayName = 'Typography';
+
 const styles = StyleSheet.create({
   base: {
     fontFamily: typography.fonts.secondary,

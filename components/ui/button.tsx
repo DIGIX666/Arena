@@ -42,6 +42,8 @@ export const Button = React.memo<ButtonProps>(({
   );
 });
 
+Button.displayName = 'Button';
+
 const styles = StyleSheet.create({
   base: {
     justifyContent: 'center',

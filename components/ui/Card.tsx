@@ -17,6 +17,8 @@ export const Card = React.memo<CardProps>(({ children, variant = 'default', styl
   );
 });
 
+Card.displayName = 'Card';
+
 const styles = StyleSheet.create({
   base: {
     backgroundColor: theme.colors.tertiary,

@@ -84,3 +84,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+Header.displayName = 'Header';

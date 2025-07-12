@@ -68,6 +68,8 @@ export const SurveySection = React.memo(() => {
   );
 });
 
+SurveySection.displayName = 'SurveySection';
+
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: theme.spacing.xl,

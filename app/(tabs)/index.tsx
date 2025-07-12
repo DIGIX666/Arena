@@ -33,6 +33,8 @@ const HomeScreen = React.memo(() => {
   );
 });
 
+HomeScreen.displayName = 'HomeScreen';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

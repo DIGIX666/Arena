@@ -29,11 +29,17 @@ export interface ERC20MockInterface extends Interface {
       | "allowance"
       | "approve"
       | "balanceOf"
+      | "burn"
       | "decimals"
       | "decreaseAllowance"
       | "increaseAllowance"
       | "mint"
+      | "mintAndApprove"
       | "name"
+      | "resetBalance"
+      | "setBalance"
+      | "setDecimals"
+      | "setTransferShouldFail"
       | "symbol"
       | "totalSupply"
       | "transfer"
@@ -54,6 +60,10 @@ export interface ERC20MockInterface extends Interface {
     functionFragment: "balanceOf",
     values: [AddressLike]
   ): string;
+  encodeFunctionData(
+    functionFragment: "burn",
+    values: [AddressLike, BigNumberish]
+  ): string;
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "decreaseAllowance",
@@ -67,7 +77,27 @@ export interface ERC20MockInterface extends Interface {
     functionFragment: "mint",
     values: [AddressLike, BigNumberish]
   ): string;
+  encodeFunctionData(
+    functionFragment: "mintAndApprove",
+    values: [AddressLike, BigNumberish, AddressLike]
+  ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "resetBalance",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setBalance",
+    values: [AddressLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setDecimals",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setTransferShouldFail",
+    values: [boolean]
+  ): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "totalSupply",
@@ -85,6 +115,7 @@ export interface ERC20MockInterface extends Interface {
   decodeFunctionResult(functionFragment: "allowance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "decreaseAllowance",
@@ -95,7 +126,24 @@ export interface ERC20MockInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "mintAndApprove",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "resetBalance",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "setBalance", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "setDecimals",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setTransferShouldFail",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "totalSupply",
@@ -201,6 +249,12 @@ export interface ERC20Mock extends BaseContract {
 
   balanceOf: TypedContractMethod<[account: AddressLike], [bigint], "view">;
 
+  burn: TypedContractMethod<
+    [from: AddressLike, amount: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+
   decimals: TypedContractMethod<[], [bigint], "view">;
 
   decreaseAllowance: TypedContractMethod<
@@ -221,7 +275,37 @@ export interface ERC20Mock extends BaseContract {
     "nonpayable"
   >;
 
+  mintAndApprove: TypedContractMethod<
+    [to: AddressLike, amount: BigNumberish, spender: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+
   name: TypedContractMethod<[], [string], "view">;
+
+  resetBalance: TypedContractMethod<
+    [account: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+
+  setBalance: TypedContractMethod<
+    [account: AddressLike, amount: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+
+  setDecimals: TypedContractMethod<
+    [newDecimals: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+
+  setTransferShouldFail: TypedContractMethod<
+    [shouldFail: boolean],
+    [void],
+    "nonpayable"
+  >;
 
   symbol: TypedContractMethod<[], [string], "view">;
 
@@ -261,6 +345,13 @@ export interface ERC20Mock extends BaseContract {
     nameOrSignature: "balanceOf"
   ): TypedContractMethod<[account: AddressLike], [bigint], "view">;
   getFunction(
+    nameOrSignature: "burn"
+  ): TypedContractMethod<
+    [from: AddressLike, amount: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
     nameOrSignature: "decimals"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
@@ -285,8 +376,31 @@ export interface ERC20Mock extends BaseContract {
     "nonpayable"
   >;
   getFunction(
+    nameOrSignature: "mintAndApprove"
+  ): TypedContractMethod<
+    [to: AddressLike, amount: BigNumberish, spender: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
     nameOrSignature: "name"
   ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "resetBalance"
+  ): TypedContractMethod<[account: AddressLike], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "setBalance"
+  ): TypedContractMethod<
+    [account: AddressLike, amount: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "setDecimals"
+  ): TypedContractMethod<[newDecimals: BigNumberish], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "setTransferShouldFail"
+  ): TypedContractMethod<[shouldFail: boolean], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "symbol"
   ): TypedContractMethod<[], [string], "view">;

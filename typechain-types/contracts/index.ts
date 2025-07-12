@@ -7,3 +7,4 @@ import type * as arenaNftSol from "./ArenaNft.sol";
 export type { arenaNftSol };
 import type * as mocks from "./mocks";
 export type { mocks };
+export type { SimpleDuel } from "./SimpleDuel";

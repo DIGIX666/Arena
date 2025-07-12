@@ -19,15 +19,21 @@ async function main() {
   await fanToken.waitForDeployment();
   const fanTokenAddress = await fanToken.getAddress();
   console.log(`✅ Fan Token (TPSG) déployé à l'adresse : ${fanTokenAddress}`);
+
+  const usdcToken = await ERC20Mock.deploy("Test USDC", "TUSDC");
+  await usdcToken.waitForDeployment();
+  await usdcToken.setDecimals(6); // USDC has 6 decimals
+  const usdcTokenAddress = await usdcToken.getAddress();
+  console.log(`✅ USDC Token (TUSDC) déployé à l'adresse : ${usdcTokenAddress}`);
   
   console.log("----------------------------------------------------");
 
-  // 2. Déployer le contrat BetFiArenaV2 avec les adresses des tokens
-  const BetFiArenaV2 = await ethers.getContractFactory("BetFiArenaV2");
-  const arenaContract = await BetFiArenaV2.deploy(bettingTokenAddress, fanTokenAddress);
-  await arenaContract.waitForDeployment();
-  const arenaAddress = await arenaContract.getAddress();
-  console.log(`✅ Contrat BetFiArenaV2 déployé à l'adresse : ${arenaAddress}`);
+  // 2. Déployer le MockVolatilityOracle
+  const MockVolatilityOracle = await ethers.getContractFactory("MockVolatilityOracle");
+  const volatilityOracle = await MockVolatilityOracle.deploy();
+  await volatilityOracle.waitForDeployment();
+  const volatilityOracleAddress = await volatilityOracle.getAddress();
+  console.log(`✅ MockVolatilityOracle déployé à l'adresse : ${volatilityOracleAddress}`);
 
   console.log("----------------------------------------------------");
 
@@ -40,7 +46,21 @@ async function main() {
 
   console.log("----------------------------------------------------");
 
-  // 4. Déployer le contrat ArenaNFT
+  // 4. Déployer le contrat SeasonalNFTArena
+  const SeasonalNFTArena = await ethers.getContractFactory("SeasonalNFTArena");
+  const seasonalArenaContract = await SeasonalNFTArena.deploy(
+    bettingTokenAddress,   // _chzToken
+    usdcTokenAddress,      // _usdcToken  
+    fanTokenAddress,       // _fanToken
+    volatilityOracleAddress // _volatilityOracle
+  );
+  await seasonalArenaContract.waitForDeployment();
+  const seasonalArenaAddress = await seasonalArenaContract.getAddress();
+  console.log(`✅ Contrat SeasonalNFTArena déployé à l'adresse : ${seasonalArenaAddress}`);
+
+  console.log("----------------------------------------------------");
+
+  // 5. Déployer le contrat ArenaNFT
   const ArenaNFT = await ethers.getContractFactory("ArenaNFT");
   // Le constructeur de ArenaNFT prend le nom, le symbole, et l'adresse du signataire (on utilise le déployeur pour le test)
   const nftContract = await ArenaNFT.deploy("BetFi Exclusive NFT", "BFE", deployer.address);
@@ -49,11 +69,13 @@ async function main() {
   console.log(`✅ Contrat ArenaNFT déployé à l'adresse : ${nftArenaAddress}`);
   console.log("----------------------------------------------------");
 
-  // 5. Distribuer des tokens de test (montants réduits pour économiser)
+  // 6. Distribuer des tokens de test (montants réduits pour économiser)
   const mintAmount = ethers.parseEther("100"); // 100 tokens au lieu de plus
+  const usdcMintAmount = ethers.parseUnits("100", 6); // 100 USDC with 6 decimals
   await bettingToken.mint(deployer.address, mintAmount);
   await fanToken.mint(deployer.address, mintAmount);
-  console.log(`✅ Tokens distribués: ${ethers.formatEther(mintAmount)} de chaque`);
+  await usdcToken.mint(deployer.address, usdcMintAmount);
+  console.log(`✅ Tokens distribués: ${ethers.formatEther(mintAmount)} CHZ/PSG, ${ethers.formatUnits(usdcMintAmount, 6)} USDC`);
   
   console.log("🎉 Tous les contrats ont été déployés !");
 }

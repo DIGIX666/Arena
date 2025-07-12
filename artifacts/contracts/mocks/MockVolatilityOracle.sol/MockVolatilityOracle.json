@@ -1,0 +1,248 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "MockVolatilityOracle",
+  "sourceName": "contracts/mocks/MockVolatilityOracle.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "crashPercent",
+          "type": "uint256"
+        }
+      ],
+      "name": "EmergencyModeTriggered",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "volatility",
+          "type": "uint256"
+        }
+      ],
+      "name": "PriceUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "volatility",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "threshold",
+          "type": "uint256"
+        }
+      ],
+      "name": "VolatilityThresholdReached",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "getCurrentCHZPrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getVolatilityData",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "currentPrice",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "volatilityPercent",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "lastUpdateTime",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "emergencyMode",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct IVolatilityOracle.VolatilityData",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getVolatilityPercent",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bool",
+          "name": "_emergencyMode",
+          "type": "bool"
+        }
+      ],
+      "name": "setEmergencyMode",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_price",
+          "type": "uint256"
+        }
+      ],
+      "name": "setPrice",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_price",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_volatilityPercent",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "_emergencyMode",
+          "type": "bool"
+        }
+      ],
+      "name": "setVolatilityData",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_volatilityPercent",
+          "type": "uint256"
+        }
+      ],
+      "name": "setVolatilityPercent",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "crashThreshold",
+          "type": "uint256"
+        }
+      ],
+      "name": "shouldTriggerEmergency",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "threshold",
+          "type": "uint256"
+        }
+      ],
+      "name": "shouldTriggerProtection",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "updatePriceData",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x60803461008757600480546001600160a01b03191633179055608081016001600160401b038111828210176100715760405262b71b00808252600060606107d09384602082015242604082015201526000556001554260025560ff19600354166003556040516104ac908161008d8239f35b634e487b7160e01b600052604160045260246000fd5b600080fdfe60806040908082526004908136101561001757600080fd5b600092833560e01c918263222da81c146103ee575081634beae4811461039057816375cb65a6146103155781637631f193146102f05781638da5cb5b146102c757816391b7f5ed1461026b578163995e57791461022a578163a1f6c5f21461020b57508063a43de31a146101c6578063be32b3f81461014e5763cd2435f41461009f57600080fd5b3461014a57606036600319011261014a5780356024359160443591821515808403610146576100da859360018060a01b03905416331461043e565b8186558260015560ff801960035416911617600355426002557f945c1c4e99aa89f648fbfe3df471b916f719e16d960fcec0737d4d56bd6968388580a361011f575080f35b7f7c83c94a71d62b1ce80ed65a1d4ede8bc39c193a65cff39fc4ff9c6625aeb1f18280a280f35b8580fd5b5080fd5b503461014a57602036600319011261014a57803590811515908183036101c25754610183906001600160a01b0316331461043e565b60ff8019600354169116176003556101985780f35b6001547f7c83c94a71d62b1ce80ed65a1d4ede8bc39c193a65cff39fc4ff9c6625aeb1f18280a280f35b8380fd5b8234610208578060031936011261020857426002558054600154907f945c1c4e99aa89f648fbfe3df471b916f719e16d960fcec0737d4d56bd6968388380a380f35b80fd5b83903461014a578160031936011261014a576020906001549051908152f35b905034610267576020366003190112610267576020925060ff600354169182610257575b50519015158152f35b909150356001541015903861024e565b8280fd5b50503461014a57602036600319011261014a5761029581359160018060a01b03905416331461043e565b80825542600255600154907f945c1c4e99aa89f648fbfe3df471b916f719e16d960fcec0737d4d56bd6968388380a380f35b919050346102675782600319360112610267575490516001600160a01b03909116815260209150f35b9190503461026757602036600319011261026757602092503560015410159051908152f35b83903461014a578160031936011261014a57816080926060610335610408565b8281528260208201528285820152015261034d610408565b9054918282526001546020830190815260025490828401918252606060ff6003541694019315158452825194855251602085015251908301525115156060820152f35b50503461014a57602036600319011261014a578054610bb89135906103bf906001600160a01b0316331461043e565b80600155426002557f06076f9043294b8c46337ef24998f35871df49215df3eb8f8a1fd91389a465e28380a380f35b84903461014a578160031936011261014a57602091548152f35b604051906080820182811067ffffffffffffffff82111761042857604052565b634e487b7160e01b600052604160045260246000fd5b1561044557565b60405162461bcd60e51b81526020600482015260096024820152682737ba1037bbb732b960b91b6044820152606490fdfea2646970667358221220b5202116cd705225b620fdaf6088ecd72ea0b582323d8d1130ed0a29472af6a264736f6c63430008140033",
+  "deployedBytecode": "0x60806040908082526004908136101561001757600080fd5b600092833560e01c918263222da81c146103ee575081634beae4811461039057816375cb65a6146103155781637631f193146102f05781638da5cb5b146102c757816391b7f5ed1461026b578163995e57791461022a578163a1f6c5f21461020b57508063a43de31a146101c6578063be32b3f81461014e5763cd2435f41461009f57600080fd5b3461014a57606036600319011261014a5780356024359160443591821515808403610146576100da859360018060a01b03905416331461043e565b8186558260015560ff801960035416911617600355426002557f945c1c4e99aa89f648fbfe3df471b916f719e16d960fcec0737d4d56bd6968388580a361011f575080f35b7f7c83c94a71d62b1ce80ed65a1d4ede8bc39c193a65cff39fc4ff9c6625aeb1f18280a280f35b8580fd5b5080fd5b503461014a57602036600319011261014a57803590811515908183036101c25754610183906001600160a01b0316331461043e565b60ff8019600354169116176003556101985780f35b6001547f7c83c94a71d62b1ce80ed65a1d4ede8bc39c193a65cff39fc4ff9c6625aeb1f18280a280f35b8380fd5b8234610208578060031936011261020857426002558054600154907f945c1c4e99aa89f648fbfe3df471b916f719e16d960fcec0737d4d56bd6968388380a380f35b80fd5b83903461014a578160031936011261014a576020906001549051908152f35b905034610267576020366003190112610267576020925060ff600354169182610257575b50519015158152f35b909150356001541015903861024e565b8280fd5b50503461014a57602036600319011261014a5761029581359160018060a01b03905416331461043e565b80825542600255600154907f945c1c4e99aa89f648fbfe3df471b916f719e16d960fcec0737d4d56bd6968388380a380f35b919050346102675782600319360112610267575490516001600160a01b03909116815260209150f35b9190503461026757602036600319011261026757602092503560015410159051908152f35b83903461014a578160031936011261014a57816080926060610335610408565b8281528260208201528285820152015261034d610408565b9054918282526001546020830190815260025490828401918252606060ff6003541694019315158452825194855251602085015251908301525115156060820152f35b50503461014a57602036600319011261014a578054610bb89135906103bf906001600160a01b0316331461043e565b80600155426002557f06076f9043294b8c46337ef24998f35871df49215df3eb8f8a1fd91389a465e28380a380f35b84903461014a578160031936011261014a57602091548152f35b604051906080820182811067ffffffffffffffff82111761042857604052565b634e487b7160e01b600052604160045260246000fd5b1561044557565b60405162461bcd60e51b81526020600482015260096024820152682737ba1037bbb732b960b91b6044820152606490fdfea2646970667358221220b5202116cd705225b620fdaf6088ecd72ea0b582323d8d1130ed0a29472af6a264736f6c63430008140033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

@@ -8,7 +8,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "test:contracts": "hardhat test"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
@@ -39,15 +40,19 @@
     "react-native-svg": "15.11.2",
     "react-native-web": "~0.20.0",
     "react-native-webview": "13.13.5",
-    "undefined": "expo-google-fonts/manrope"
+    "@openzeppelin/contracts": "^4.9.6",
+    "dotenv": "^16.4.5",
+    "@expo-google-fonts/manrope": "^0.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@types/react": "~19.0.10",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~9.2.0",
-    "react-native-svg-transformer": "^1.5.1",
-    "typescript": "~5.8.3"
+    "typescript": "~5.8.3",
+    "@nomicfoundation/hardhat-toolbox": "^6.0.0",
+    "hardhat": "^2.25.0",
+    "react-native-svg-transformer": "^1.5.1"
   },
   "private": true
 }

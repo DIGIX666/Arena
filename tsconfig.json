@@ -6,12 +6,17 @@
       "@/*": [
         "./*"
       ]
-    }
+    },
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext"
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
+    "expo-env.d.ts",
+    "hardhat.config.cts", // On ajoute les fichiers Hardhat
+    "scripts/**/*.ts",
+    "test/**/*.ts"
   ]
 }

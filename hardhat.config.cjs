@@ -2,7 +2,8 @@ require("dotenv/config");
 require("@nomicfoundation/hardhat-toolbox");
 
 const spicyPrivateKey = process.env.SPICY_PRIVATE_KEY || "";
-const config = {
+
+module.exports = {
   solidity: {
     compilers: [
       {
@@ -30,7 +31,5 @@ const config = {
     tests: "./test",
     cache: "./cache",
     artifacts: "./artifacts"
-  },
+  }
 };
-
-module.exports = config;

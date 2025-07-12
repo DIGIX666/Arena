@@ -8,14 +8,19 @@
       ]
     },
     "module": "NodeNext",
-    "moduleResolution": "NodeNext"
+    "moduleResolution": "NodeNext",
+    "target": "ES2020",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "noImplicitAny": false
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
-    "hardhat.config.cts", // On ajoute les fichiers Hardhat
+    "hardhat.config.js",
     "scripts/**/*.ts",
     "test/**/*.ts"
   ]

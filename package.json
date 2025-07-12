@@ -2,7 +2,6 @@
   "name": "arena",
   "main": "expo-router/entry",
   "version": "1.0.0",
-  "type":"module",
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
@@ -10,7 +9,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "expo lint",
-  "test:contracts": "hardhat test"
+    "test:contracts": "hardhat test"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
@@ -34,13 +33,16 @@
     "react-dom": "19.0.0",
     "react-native": "0.79.5",
     "react-native-gesture-handler": "~2.24.0",
+    "react-native-linear-gradient": "^2.8.3",
     "react-native-reanimated": "~3.17.4",
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.11.1",
+    "react-native-svg": "15.11.2",
     "react-native-web": "~0.20.0",
     "react-native-webview": "13.13.5",
-     "@openzeppelin/contracts": "^4.9.6",
-  "dotenv": "^16.4.5"
+    "@openzeppelin/contracts": "^4.9.6",
+    "dotenv": "^16.4.5",
+    "@expo-google-fonts/manrope": "^0.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -49,7 +51,8 @@
     "eslint-config-expo": "~9.2.0",
     "typescript": "~5.8.3",
     "@nomicfoundation/hardhat-toolbox": "^6.0.0",
-    "hardhat": "^2.25.0"
+    "hardhat": "^2.25.0",
+    "react-native-svg-transformer": "^1.5.1"
   },
   "private": true
 }

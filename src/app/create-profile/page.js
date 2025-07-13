@@ -37,7 +37,7 @@ export default function CreateProfile() {
 
   if (!isConnected) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#0a0b1e] via-[#1a1b3e] to-[#0a0b1e] text-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-black text-white flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-4">Wallet non connecté</h1>
           <p className="text-gray-300">Veuillez vous connecter pour continuer</p>
@@ -47,26 +47,25 @@ export default function CreateProfile() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0a0b1e] via-[#1a1b3e] to-[#0a0b1e] text-white">
+    <div className="min-h-screen bg-black text-white">
       <div className="container mx-auto px-6 py-20">
         <div className="max-w-md mx-auto">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold mb-4">Créer votre profil</h1>
-            <p className="text-gray-300">Choisissez un nom d'utilisateur pour votre profil blockchain</p>
+            <h1 className="text-3xl font-bold mb-4">Create your profile</h1>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="username" className="block text-sm font-medium mb-2">
-                Nom d'utilisateur
+                Username
               </label>
               <input
                 type="text"
                 id="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-[#5C80AD] focus:border-transparent"
-                placeholder="Votre nom d'utilisateur"
+                className="w-full px-4 py-3 bg-white/10 border border-white/5 rounded-md focus:outline-none focus:ring-2  focus:border-transparent"
+                placeholder="Username"
                 maxLength={32}
                 disabled={isLoading}
               />
@@ -81,9 +80,9 @@ export default function CreateProfile() {
             <button
               type="submit"
               disabled={isLoading || !username.trim()}
-              className="w-full px-4 py-3 bg-[#5C80AD] rounded-md hover:bg-[#4A8FE7] transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full px-4 py-3 bg-red-600 rounded-md hover:bg-red-900 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoading ? 'Création en cours...' : 'Créer le profil'}
+              {isLoading ? 'Loading...' : 'Create profile'}
             </button>
           </form>
         </div>

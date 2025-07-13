@@ -13,11 +13,13 @@ useGLTF.preload('/avatar/avatar2.glb');
 function Avatar({ avatarType = "avatar1" }) {
   const groupRef = useRef();
   const [modelLoaded, setModelLoaded] = useState(false);
+  const [hasError, setHasError] = useState(false);
   const avatarUrl = `/avatar/${avatarType}.glb`;
+  const fallbackUrl = '/avatar/avatar1.glb';
   
   console.log('Avatar component - Trying to load:', avatarUrl);
   
-  // Charger le modèle avec gestion d'erreur robuste
+  // Charger le modèle principal
   let gltf, scene;
   try {
     gltf = useGLTF(avatarUrl);
@@ -25,14 +27,21 @@ function Avatar({ avatarType = "avatar1" }) {
     console.log('Successfully loaded:', avatarUrl, scene ? 'with scene' : 'no scene');
   } catch (error) {
     console.error('Failed to load', avatarUrl, 'falling back to avatar1');
-    // Fallback vers avatar1 si avatar2 échoue
-    try {
-      gltf = useGLTF('/avatar/avatar1.glb');
-      scene = gltf.scene;
-    } catch (fallbackError) {
-      console.error('Even fallback failed:', fallbackError);
-      return null;
-    }
+    setHasError(true);
+  }
+  
+  // Charger le fallback si erreur
+  let fallbackGltf;
+  try {
+    fallbackGltf = useGLTF(fallbackUrl);
+  } catch (fallbackError) {
+    console.error('Even fallback failed:', fallbackError);
+  }
+  
+  // Utiliser le fallback si nécessaire
+  if (hasError && fallbackGltf) {
+    gltf = fallbackGltf;
+    scene = fallbackGltf.scene;
   }
   
   const cloned = useMemo(() => {
@@ -71,7 +80,7 @@ function Avatar({ avatarType = "avatar1" }) {
 function AvatarFallback() {
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <div className="w-48 h-48 bg-gradient-to-br from-[#5C80AD] to-[#4A8FE7] rounded-full flex items-center justify-center">
+      <div className="w-48 h-48 bg-gradient-to-br from-red-600 to-[#4A8FE7] rounded-full flex items-center justify-center">
         <div className="w-40 h-40 bg-white/10 rounded-full flex items-center justify-center">
           <span className="text-4xl">⚽</span>
         </div>
@@ -247,7 +256,7 @@ export default function Profile() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#0a0b1e] via-[#1a1b3e] to-[#0a0b1e] text-white flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-[#5C80AD] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-8 h-8 border-2 border-red-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-300">Chargement du profil...</p>
         </div>
       </div>
@@ -255,45 +264,54 @@ export default function Profile() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0a0b1e] via-[#1a1b3e] to-[#0a0b1e] text-white relative overflow-hidden">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+       {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 left-10 w-3 h-3 bg-red-500 rounded-full animate-pulse opacity-60"></div>
+        <div className="absolute top-40 right-20 w-2 h-2 bg-red-400 rounded-full animate-pulse delay-300 opacity-40"></div>
+        <div className="absolute bottom-20 left-20 w-4 h-4 bg-red-500 rounded-full animate-pulse delay-700 opacity-50"></div>
+        <div className="absolute bottom-40 right-10 w-9 h-8 bg-red-400 rounded-full animate-pulse delay-1000 opacity-30"></div>
+        <div className="absolute top-1/2 left-1/4 w-2 h-2 bg-red-500 rounded-full animate-pulse delay-500 opacity-40"></div>
+        <div className="absolute top-1/3 right-1/3 w-3 h-3 bg-red-400 rounded-full animate-pulse delay-200 opacity-30"></div>
+        <div className="absolute bottom-1/3 left-1/3 w-2 h-2 bg-red-500 rounded-full animate-pulse delay-800 opacity-50"></div>
+        <div className="absolute top-3/4 right-1/4 w-3 h-3 bg-red-400 rounded-full animate-pulse delay-400 opacity-40"></div>
+        
+        {/* Geometric Lines */}
+        <div className="absolute top-1/4 right-5 w-62 h-62 border border-red-500/20 transform rotate-45"></div>
+        <div className="absolute bottom-1/4 left-20 w-24 h-24 border border-red-400/15 transform rotate-12"></div>
+        <div className="absolute top-1/3 left-1/2 w-20 h-20 border border-red-500/10 transform -rotate-30"></div>
+      </div>
+      <div className="absolute inset-0 overflow-hidden">
+      </div>
       {/* Navigation Header */}
-      <nav className="flex items-center justify-between p-6 lg:px-12">
-        <div className="text-xl font-bold">
-          ARENA NETWORK
+      <nav className="flex items-center justify-between p-6 lg:px-12 relative z-10">
+        <div className="flex items-center">
+          <img 
+            src="/logo-kolize.png" 
+            alt="KOLISE Logo" 
+            className="h-50 w-auto ml-10"
+          />
         </div>
         <div className="hidden md:flex items-center space-x-8">
-          <a href="/" className="hover:text-[#5C80AD] transition-colors">Home</a>
-          <a href="#" className="hover:text-[#5C80AD] transition-colors">Discover</a>
-          <a href="#" className="hover:text-[#5C80AD] transition-colors">Business</a>
-          <a href="#" className="hover:text-[#5C80AD] transition-colors">Builders</a>
-          <a href="#" className="text-[#5C80AD]">Profile</a>
+          <a href="/" className="text-gray-300 hover:text-white transition-colors duration-300">Home</a>
+          <a href="/coliseum" className="text-gray-300 hover:text-white transition-colors duration-300">Coliseum</a>
+          <a href="/duel" className="text-gray-300 hover:text-white transition-colors duration-300">Duels</a>
+          <a href="/profile" className="text-red-400 font-medium">Profile</a>
         </div>
         <div className="flex items-center space-x-4">
-          <button className="px-4 py-2 border border-[#5C80AD] text-[#5C80AD] rounded-md hover:bg-[#5C80AD]/10 transition-colors">
-            Deposit +
-          </button>
-          <button className="px-4 py-2 border border-white/20 rounded-md hover:bg-white/10 transition-colors">
-            Withdraw
+          <button className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-300">
+            Connecter Wallet
           </button>
         </div>
       </nav>
 
-      {/* Decorative Elements */}
-      <div className="absolute top-20 left-10 w-2 h-2 bg-[#5C80AD] rounded-full animate-pulse"></div>
-      <div className="absolute top-40 right-20 w-2 h-2 bg-[#5C80AD] rounded-full animate-pulse delay-300"></div>
-      <div className="absolute bottom-20 left-20 w-2 h-2 bg-[#5C80AD] rounded-full animate-pulse delay-700"></div>
-      <div className="absolute bottom-40 right-10 w-2 h-2 bg-[#5C80AD] rounded-full animate-pulse delay-1000"></div>
-
       {/* Main Content */}
-      <main className="flex flex-col lg:flex-row items-start justify-center px-6 py-24 lg:px-12 gap-32 mt-12">
+      <main className="flex flex-col lg:flex-row items-start justify-center px-6 py-24 lg:px-12 gap-32 mt-12 relative z-10">
         
         {/* Left Side - Avatar and User Info */}
         <div className="flex-1 max-w-md">
           {/* User Header */}
           <div className="flex items-center mb-8">
-            <div className="w-8 h-8 bg-[#5C80AD] rounded-full flex items-center justify-center mr-3">
-              <span className="text-sm font-bold">🛡️</span>
-            </div>
             <h1 className="text-2xl font-bold">@{username}</h1>
           </div>
 
@@ -306,7 +324,7 @@ export default function Profile() {
           <div className="flex justify-center mb-8">
             <div className="relative w-32 h-32">
               {/* Cercle de fond */}
-              <div className="w-32 h-32 rounded-full border-4 border-gray-600/30 flex items-center justify-center bg-gradient-to-br from-[#1a1b3e] to-[#0a0b1e]">
+              <div className="w-32 h-32 rounded-full border-4 border-gray-600/40 flex items-center justify-center bg-gradient-to-br from-red-800 to-black-800">
                 <div className="text-center">
                   <div className="text-3xl font-bold">3452</div>
                   <div className="text-sm text-gray-400">XP</div>
@@ -318,7 +336,7 @@ export default function Profile() {
                   cx="64"
                   cy="64"
                   r="60"
-                  stroke="#5C80AD"
+                  stroke="#ec3535ff"
                   strokeWidth="4"
                   fill="none"
                   strokeDasharray={`${(3452 / (3452 + 7477)) * 377} 377`}
@@ -331,7 +349,7 @@ export default function Profile() {
 
           {/* Next Level Info */}
           <div className="text-center mb-8">
-            <p className="text-[#5C80AD] text-sm mb-2">NEXT LEVEL IN</p>
+            <p className="text-red-400 text-sm mb-2">NEXT LEVEL IN</p>
             <p className="text-xl font-bold">7.477 XP</p>
           </div>
         </div>
@@ -343,15 +361,15 @@ export default function Profile() {
           <div className="mb-8">
             <div className="text-right mb-4">
               <div className="text-4xl lg:text-5xl font-bold mb-2">$4.433,43</div>
-              <div className="text-[#5C80AD] text-lg">98 074,51 CHZ</div>
+              <div className="text-red-400 text-lg">98 074,51 CHZ</div>
               {/* Simple chart line */}
-              <div className="mt-4 h-16 bg-gradient-to-r from-transparent via-[#5C80AD]/20 to-[#5C80AD]/40 rounded-lg relative">
-                <div className="absolute bottom-0 left-0 w-full h-1 bg-[#5C80AD] rounded-full"></div>
+              <div className="mt-4 h-16 bg-gradient-to-r from-transparent via-red-500/20 to-red-500/40 rounded-lg relative">
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-white rounded-full"></div>
               </div>
             </div>
             
             <div className="flex justify-end">
-              <button className="px-6 py-2 border border-[#5C80AD]/50 rounded-md hover:bg-[#5C80AD]/10 transition-colors text-[#5C80AD]">
+              <button className="px-6 py-2 border border-white/50 rounded-md hover:bg-white/10 transition-colors text-white">
                 View all stats &gt;
               </button>
             </div>
@@ -361,47 +379,47 @@ export default function Profile() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             
             {/* Arenas in Progress */}
-            <div className="bg-gradient-to-br from-[#1a1b3e]/50 to-[#0a0b1e]/50 p-6 rounded-xl border border-white/10">
+            <div className="bg-white/3 p-6 rounded-xl border border-white/4">
               <h3 className="text-lg font-semibold mb-4">Arenas in progress</h3>
               <div className="text-center">
-                <div className="text-6xl font-bold text-[#5C80AD] mb-4">5</div>
-                <button className="text-[#5C80AD] hover:underline">View All &gt;</button>
+                <div className="text-6xl font-bold text-red-400 mb-4">5</div>
+                <button className="text-white/40 hover:underline">View All &gt;</button>
               </div>
             </div>
 
             {/* Duels in Progress */}
-            <div className="bg-gradient-to-br from-[#1a1b3e]/50 to-[#0a0b1e]/50 p-6 rounded-xl border border-white/10">
+            <div className="bg-white/3 p-6 rounded-xl border border-white/4">
               <h3 className="text-lg font-semibold mb-4">Duels in progress</h3>
               <div className="text-center">
-                <div className="text-6xl font-bold text-[#5C80AD] mb-4">3</div>
-                <button className="text-[#5C80AD] hover:underline">View All &gt;</button>
+                <div className="text-6xl font-bold text-red-400 mb-4">3</div>
+                <button className="text-white/40 hover:underline">View All &gt;</button>
               </div>
             </div>
           </div>
 
           {/* Recent Activities */}
-          <div className="bg-gradient-to-br from-[#1a1b3e]/50 to-[#0a0b1e]/50 p-6 rounded-xl border border-white/10">
+          <div className="bg-white/6 p-6 rounded-xl border border-white/4">
             <h3 className="text-lg font-semibold mb-4">Recent Activities</h3>
             <div className="space-y-3">
               <div className="flex justify-between items-center py-2 px-3 bg-white/5 rounded-lg">
                 <span className="text-gray-300">Won NFT skin #1234</span>
                 <div className="flex items-center gap-3">
-                  <span className="text-[#5C80AD] font-semibold">+150 XP</span>
+                  <span className="text-red-400 font-semibold">+150 XP</span>
                   <button 
                     onClick={() => setShowRewardPopup(true)}
-                    className="px-3 py-1 bg-[#5C80AD] text-white text-sm rounded-md hover:bg-[#5C80AD]/80 transition-colors font-semibold"
-                  >
+                    className="px-3 py-1 bg-red-600 text-white text-sm rounded-md hover:bg-red-700 transition-colors font-semibold">
+                  
                     Claim
                   </button>
                 </div>
               </div>
               <div className="flex justify-between items-center py-2 px-3 bg-white/5 rounded-lg">
                 <span className="text-gray-300">Completed Duel vs Player456</span>
-                <span className="text-[#5C80AD] font-semibold">+75 XP</span>
+                <span className="text-white font-semibold">+75 XP</span>
               </div>
               <div className="flex justify-between items-center py-2 px-3 bg-white/5 rounded-lg">
                 <span className="text-gray-300">Joined Coliseum #1235</span>
-                <span className="text-yellow-400 font-semibold">-50 CHZ</span>
+                <span className="text-red-400 font-semibold">-50 CHZ</span>
               </div>
             </div>
           </div>
@@ -411,7 +429,7 @@ export default function Profile() {
       {/* Popup de récompense */}
       {showRewardPopup && (
         <div className="fixed inset-0 bg-black/50 flex items-end justify-center z-50">
-          <div className="bg-gradient-to-br from-[#1a1b3e] to-[#0a0b1e] border border-[#5C80AD]/30 rounded-t-2xl p-8 max-w-md w-full mx-4 mb-[400px] animate-in slide-in-from-bottom duration-300">
+          <div className="bg-gradient-to-br from-[#1a1b3e] to-[#0a0b1e] border border-red-600/30 rounded-t-2xl p-8 max-w-md w-full mx-4 mb-[400px] animate-in slide-in-from-bottom duration-300">
             {/* Image du t-shirt */}
             <div className="flex justify-center mb-6">
               <img 
@@ -437,7 +455,7 @@ export default function Profile() {
               </button>
               <button 
                 onClick={handleClaimReward}
-                className="flex-1 px-4 py-3 bg-[#5C80AD] text-white rounded-md hover:bg-[#5C80AD]/80 transition-colors font-semibold"
+                className="flex-1 px-4 py-3 bg-red-600 text-white rounded-md hover:bg-red-600/80 transition-colors font-semibold"
               >
                 Claim
               </button>

@@ -14,7 +14,7 @@ const CHILIZ_TESTNET_CONFIG = {
     symbol: 'CHZ',
     decimals: 18,
   },
-  rpcUrls: ['https://spicy-rpc.chiliz.com'],
+  rpcUrls: ['https://spicy-rpc.chiliz.com', 'https://chiliz-spicy.publicnode.com'],
   blockExplorerUrls: ['https://testnet.chiliscan.com'],
 };
 
@@ -155,7 +155,9 @@ export function WalletProvider({ children }) {
   const createProfile = async (username) => {
     if (!contract) throw new Error('Contrat non initialisé');
     try {
-      const tx = await contract.createProfile(username);
+      const tx = await contract.createProfile(username, {
+        gasLimit: 500000 // Increase gas limit
+      });
       await tx.wait();
       return true;
     } catch (error) {

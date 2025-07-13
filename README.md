@@ -32,7 +32,13 @@ The environment is set up with Hardhat. To ensure everything works correctly:
     npx hardhat test
     ```
     You should see 2 passing, confirming the logic of both contracts is valid.
-
+    
+## How to Run Project
+```bash
+npm run dev
+OR
+yarn dev
+```
 ## Intégration avec le Frontend (Expo)
 
 For the frontend team, here’s how to interact with these contracts:

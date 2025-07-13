@@ -11,7 +11,7 @@ export default function Home() {
           <a href="#" className="hover:text-[#5C80AD] transition-colors">Business</a>
           <a href="#" className="hover:text-[#5C80AD] transition-colors">Builders</a>
           <a href="#" className="hover:text-[#5C80AD] transition-colors">Community</a>
-          <a href="#" className="hover:text-[#5C80AD] transition-colors">About</a>
+          <a href="/profile" className="hover:text-[#5C80AD] transition-colors">Profile</a>
         </div>
         <div className="flex items-center space-x-4">
           <button className="px-4 py-2 border border-white/20 rounded-md hover:bg-white/10 transition-colors">

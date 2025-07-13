@@ -197,6 +197,7 @@ export default function Profile() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [username, setUsername] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [copied, setCopied] = useState(false);
   const { address, isConnected, getUsername, disconnectWallet } = useWallet();
   const router = useRouter();
   
@@ -211,6 +212,18 @@ export default function Profile() {
       setIsTransitioning(false);
       console.log('Avatar changé vers avatar2');
     }, 300);
+  };
+
+  const handleCopyAddress = async () => {
+    if (address) {
+      try {
+        await navigator.clipboard.writeText(address);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch (err) {
+        console.error('Failed to copy address:', err);
+      }
+    }
   };
 
   useEffect(() => {
@@ -344,9 +357,35 @@ export default function Profile() {
             <div className="text-right mb-4">
               <div className="text-4xl lg:text-5xl font-bold mb-2">$4.433,43</div>
               <div className="text-[#5C80AD] text-lg">98 074,51 CHZ</div>
-              {/* Simple chart line */}
-              <div className="mt-4 h-16 bg-gradient-to-r from-transparent via-[#5C80AD]/20 to-[#5C80AD]/40 rounded-lg relative">
-                <div className="absolute bottom-0 left-0 w-full h-1 bg-[#5C80AD] rounded-full"></div>
+              {/* Wallet Address Display */}
+              <div className="mt-4 h-16 bg-gradient-to-r from-transparent via-[#5C80AD]/20 to-[#5C80AD]/40 rounded-lg relative p-4 flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 bg-[#5C80AD] rounded-full flex items-center justify-center">
+                    <span className="text-sm">💳</span>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-400 mb-1">Wallet Address</p>
+                    <p className="text-sm font-mono text-white">
+                      {address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'Not connected'}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <button 
+                    onClick={handleCopyAddress}
+                    className="px-3 py-1 bg-[#5C80AD]/20 text-[#5C80AD] text-xs rounded-md hover:bg-[#5C80AD]/30 transition-colors flex items-center space-x-1"
+                    disabled={!address}
+                  >
+                    <span>{copied ? '✓' : '📋'}</span>
+                    <span>{copied ? 'Copied!' : 'Copy'}</span>
+                  </button>
+                  <button 
+                    onClick={handleDisconnect}
+                    className="px-3 py-1 bg-red-500/20 text-red-400 text-xs rounded-md hover:bg-red-500/30 transition-colors"
+                  >
+                    Disconnect
+                  </button>
+                </div>
               </div>
             </div>
             

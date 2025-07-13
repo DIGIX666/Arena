@@ -28,7 +28,7 @@ export default function Home() {
     try {
       await connectWallet();
     } catch (error) {
-      console.error('Erreur de connexion:', error);
+      console.error('Connection error:', error);
     }
   };
 
@@ -52,7 +52,7 @@ export default function Home() {
           router.push('/create-profile');
         }
       } catch (error) {
-        console.error('Erreur lors de la vérification du profil:', error);
+        console.error('Profile verification error:', error);
         router.push('/create-profile');
       } finally {
         setIsCheckingProfile(false);
@@ -65,11 +65,11 @@ export default function Home() {
   }, [isConnected, address, checkProfile, getUsername, router]);
 
   const getButtonText = () => {
-    if (isLoading) return 'Connexion...';
-    if (isCheckingProfile) return 'Vérification...';
+    if (isLoading) return 'Connecting...';
+    if (isCheckingProfile) return 'Verifying...';
     if (isConnected && username) return `@${username}`;
-    if (isConnected) return 'Connecté';
-    return 'Connecter Wallet';
+    if (isConnected) return 'Connected';
+    return 'Connect Wallet';
   };
 
   const getButtonAction = () => {
@@ -102,8 +102,12 @@ export default function Home() {
 
       {/* Navigation Header */}
       <nav className="flex items-center justify-between p-6 lg:px-12 relative z-10">
-        <div className="text-xl font-bold tracking-wider">
-          KOLISE
+        <div className="flex items-center">
+          <img 
+            src="/logo-kolize.png" 
+            alt="KOLISE Logo" 
+            className="h-50 w-auto ml-10"
+          />
         </div>
         <div className="hidden md:flex items-center space-x-8">
           <a href="#" className="text-gray-300 hover:text-white transition-colors duration-300">Home</a>
@@ -124,7 +128,7 @@ export default function Home() {
               onClick={disconnectWallet}
               className="px-4 py-2 border border-red-500/50 text-red-400 rounded-lg hover:bg-red-500/10 transition-colors duration-300"
             >
-              Déconnecter
+              Disconnect
             </button>
           )}
         </div>
@@ -148,16 +152,16 @@ export default function Home() {
         {isConnected && (
           <div className="mb-8 px-6 py-3 bg-red-500/20 border border-red-500/30 rounded-lg backdrop-blur-sm">
             <p className="text-red-400 text-sm">
-              {username ? `Connecté en tant que @${username}` : 'Wallet connecté'}
+              {username ? `Connected as @${username}` : 'Wallet Connected'}
             </p>
           </div>
         )}
 
         {/* Main Title */}
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 max-w-5xl leading-tight">
-          Welcome
+          Enter the
           <br />
-          in the <span className="text-red-400">KOLISE</span>
+          <span className="text-red-400">KOLISE</span>
         </h1>
 
         {/* Subtitle */}
@@ -177,14 +181,14 @@ export default function Home() {
             }}
             className="px-10 py-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-300 font-medium text-lg shadow-lg hover:shadow-red-500/25"
           >
-            {isConnected && username ? 'Accéder au Dashboard' : 'Explore Platform'}
+            {isConnected && username ? 'Enter Arena' : 'Start Your Journey'}
           </button>
         </div>
 
         {/* Trust Section */}
         <div className="w-full max-w-6xl">
           <p className="text-sm text-gray-400 mb-12 uppercase tracking-wider">
-            Trusted By Beloved Partners And Customers
+            Trusted By Leading Blockchain Partners
           </p>
           
           {/* Partner Logos */}
@@ -215,11 +219,10 @@ export default function Home() {
       <section className="px-6 lg:px-12 pb-20 relative z-10">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Discover <span className="text-red-400">KOLISE</span> Products
+            Discover <span className="text-red-400">KOLISE</span> Features
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            The first blockchain platform built with Shariah values in mind. Designed with ease of use
-            and financial well-being in mind.
+            Experience the future of prediction markets with our smart contract-powered platform. Transparent, secure, and rewarding blockchain interactions.
           </p>
         </div>
 
@@ -227,12 +230,12 @@ export default function Home() {
         <div className="flex flex-col lg:flex-row items-start gap-8 max-w-6xl mx-auto h-[29.5rem]">
           {/* Grande Card */}
           <div className="flex-1 h-full backdrop-blur-xl bg-white/5 border border-white/20 rounded-2xl p-8 relative overflow-hidden">
-            <h3 className="text-2xl font-bold mb-4">Grande Carte</h3>
+            <h3 className="text-2xl font-bold mb-4">Smart Contract Duels</h3>
             <p className="text-gray-300 mb-6 flex-grow">
-              Description détaillée de votre grand produit, mettant en avant ses caractéristiques clés et avantages.
+              Create and participate in prediction duels powered by bulletproof smart contracts. Every bet, every outcome, every reward is transparently recorded on the blockchain. Earn points for participation and unlock exclusive arena access.
             </p>
             <button className="mt-4 px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-purple-700 transition">
-              En savoir plus
+              Start Dueling
             </button>
             <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0 animate-pulse mix-blend-overlay"></div>
           </div>
@@ -240,22 +243,22 @@ export default function Home() {
           {/* Petites Cards Empilées */}
           <div className="flex flex-col w-full lg:w-1/3 gap-6 h-full">
             <div className="backdrop-blur-xl bg-white/5 border border-white/20 rounded-2xl p-6 relative overflow-hidden flex-1 flex flex-col justify-between">
-              <h4 className="text-xl font-semibold">Petite Carte 1</h4>
+              <h4 className="text-xl font-semibold">Seasonal Arenas</h4>
               <p className="text-gray-300 flex-grow">
-                Brève description du premier petit produit.
+                Long-term prediction tournaments with dual-asset pots and volatility protection. Compete in Champions League, Transfer Window, and World Cup qualifier predictions.
               </p>
               <button className="mt-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
-                Découvrir
+                Join Arena
               </button>
               <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-white/0 mix-blend-overlay"></div>
             </div>
             <div className="backdrop-blur-xl bg-white/5 border border-white/20 rounded-2xl p-6 relative overflow-hidden flex-1 flex flex-col justify-between">
-              <h4 className="text-xl font-semibold">Petite Carte 2</h4>
+              <h4 className="text-xl font-semibold">Fan Token Rewards</h4>
               <p className="text-gray-300 flex-grow">
-                Brève description du deuxième petit produit.
+                Hold fan tokens to unlock exclusive benefits: fee exemptions, bonus rewards, and priority access to premium predictions. The more you hold, the more you earn.
               </p>
               <button className="mt-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
-                Découvrir
+                Get Tokens
               </button>
               <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-white/0 mix-blend-overlay"></div>
             </div>
@@ -276,24 +279,20 @@ export default function Home() {
           {/* Text on the right */}
           <div className="md:w-1/2 text-right">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-              Découvrez Notre Nouvelle Section
+              Powered by Blockchain Innovation
             </h2>
             <p className="text-lg md:text-xl text-gray-300 mb-8">
-              Cette section met en avant une fonctionnalité clé de votre plateforme. 
-              Vous pouvez y détailler les avantages, expliquer le processus ou 
-              tout simplement ajouter un petit message engageant pour vos utilisateurs.
-              Cette section met en avant une fonctionnalité clé de votre plateforme. 
-              Vous pouvez y détailler les avantages, expliquer le processus ou 
-              tout simplement ajouter un petit message engageant pour vos utilisateurs.
-              Cette section met en avant une fonctionnalité clé de votre plateforme. 
-              Vous pouvez y détailler les avantages, expliquer le processus ou 
-              tout simplement ajouter un petit message engageant pour vos utilisateurs.
+              Our smart contracts ensure complete transparency and fairness in every prediction duel. 
+              Every bet is immutably recorded, outcomes are tamper-proof, and rewards are automatically 
+              distributed through decentralized protocols. No intermediaries, no manipulation - just pure, 
+              trustless prediction markets where your skills and insights drive your success. 
+              Join thousands of users already earning through our innovative blockchain ecosystem.
             </p>
             <button
-              onClick={() => router.push('/feature')}
+              onClick={() => router.push('/coliseum')}
               className="px-8 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-300 font-medium"
             >
-              En savoir plus
+              Explore Duels
             </button>
           </div>
         </div>
@@ -305,25 +304,25 @@ export default function Home() {
         <div className="flex flex-col lg:flex-row items-start gap-8 max-w-6xl mx-auto">
           {/* Card 1 */}
           <div className="flex-1 backdrop-blur-xl bg-white/5 border border-white/20 rounded-2xl p-8 relative overflow-hidden">
-            <h3 className="text-2xl font-bold mb-4">Fonctionnalité 1</h3>
+            <h3 className="text-2xl font-bold mb-4">Decentralized Betting</h3>
             <p className="text-gray-300 mb-6">
-              Brève description de la première fonctionnalité clé de la plateforme.
+              Stake on prediction outcomes with complete transparency. Smart contracts automatically handle all transactions, ensuring fair distribution of winnings.
             </p>
             <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0 animate-pulse mix-blend-overlay"></div>
           </div>
           {/* Card 2 */}
           <div className="flex-1 backdrop-blur-xl bg-white/5 border border-white/20 rounded-2xl p-8 relative overflow-hidden">
-            <h3 className="text-2xl font-bold mb-4">Fonctionnalité 2</h3>
+            <h3 className="text-2xl font-bold mb-4">Automated Rewards</h3>
             <p className="text-gray-300 mb-6">
-              Brève description de la deuxième fonctionnalité clé de la plateforme.
+              Earn points for every prediction, unlock bonus multipliers with fan tokens, and receive instant payouts through blockchain automation.
             </p>
             <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0 animate-pulse mix-blend-overlay"></div>
           </div>
           {/* Card 3 */}
           <div className="flex-1 backdrop-blur-xl bg-white/5 border border-white/20 rounded-2xl p-8 relative overflow-hidden">
-            <h3 className="text-2xl font-bold mb-4">Fonctionnalité 3</h3>
+            <h3 className="text-2xl font-bold mb-4">Gas-Free Experience</h3>
             <p className="text-gray-300 mb-6">
-              Brève description de la troisième fonctionnalité clé de la plateforme.
+              Enjoy seamless interactions with our gas relayer system. Focus on predictions, not transaction fees - we handle the blockchain complexity.
             </p>
             <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0 animate-pulse mix-blend-overlay"></div>
           </div>
@@ -333,19 +332,19 @@ export default function Home() {
       {/* Newsletter Section */}
       <section className="px-6 lg:px-12 py-20 relative z-10 bg-black-900 backdrop-blur-lg bg-opacity-30">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Inscrivez-vous à notre Newsletter</h2>
-          <p className="text-gray-300 mb-8">Recevez les dernières actualités et mises à jour directement dans votre boîte mail.</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Join the KOLISE Community</h2>
+          <p className="text-gray-300 mb-8">Get the latest updates on new prediction markets, exclusive tournaments, and blockchain innovations delivered to your inbox.</p>
           <form className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <input
               type="email"
-              placeholder="Votre email"
+              placeholder="Your email address"
               className="w-full sm:w-auto px-6 py-3 bg-white/3 backdrop-blur-xl border border-white/5 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-red-500"
             />
             <button
               type="submit"
               className="px-8 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-300"
             >
-              S'inscrire
+              Subscribe
             </button>
           </form>
         </div>
@@ -353,7 +352,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="px-6 lg:px-12 py-6 text-center text-gray-500 text-sm">
-        © {new Date().getFullYear()} KOLISE. Tous droits réservés.
+        © {new Date().getFullYear()} KOLISE. All rights reserved. Powered by blockchain technology.
       </footer>
 
     </div>

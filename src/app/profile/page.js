@@ -13,11 +13,13 @@ useGLTF.preload('/avatar/avatar2.glb');
 function Avatar({ avatarType = "avatar1" }) {
   const groupRef = useRef();
   const [modelLoaded, setModelLoaded] = useState(false);
+  const [hasError, setHasError] = useState(false);
   const avatarUrl = `/avatar/${avatarType}.glb`;
+  const fallbackUrl = '/avatar/avatar1.glb';
   
   console.log('Avatar component - Trying to load:', avatarUrl);
   
-  // Charger le modèle avec gestion d'erreur robuste
+  // Charger le modèle principal
   let gltf, scene;
   try {
     gltf = useGLTF(avatarUrl);
@@ -25,14 +27,21 @@ function Avatar({ avatarType = "avatar1" }) {
     console.log('Successfully loaded:', avatarUrl, scene ? 'with scene' : 'no scene');
   } catch (error) {
     console.error('Failed to load', avatarUrl, 'falling back to avatar1');
-    // Fallback vers avatar1 si avatar2 échoue
-    try {
-      gltf = useGLTF('/avatar/avatar1.glb');
-      scene = gltf.scene;
-    } catch (fallbackError) {
-      console.error('Even fallback failed:', fallbackError);
-      return null;
-    }
+    setHasError(true);
+  }
+  
+  // Charger le fallback si erreur
+  let fallbackGltf;
+  try {
+    fallbackGltf = useGLTF(fallbackUrl);
+  } catch (fallbackError) {
+    console.error('Even fallback failed:', fallbackError);
+  }
+  
+  // Utiliser le fallback si nécessaire
+  if (hasError && fallbackGltf) {
+    gltf = fallbackGltf;
+    scene = fallbackGltf.scene;
   }
   
   const cloned = useMemo(() => {
@@ -71,7 +80,7 @@ function Avatar({ avatarType = "avatar1" }) {
 function AvatarFallback() {
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <div className="w-48 h-48 bg-gradient-to-br from-[#5C80AD] to-[#4A8FE7] rounded-full flex items-center justify-center">
+      <div className="w-48 h-48 bg-gradient-to-br from-red-600 to-[#4A8FE7] rounded-full flex items-center justify-center">
         <div className="w-40 h-40 bg-white/10 rounded-full flex items-center justify-center">
           <span className="text-4xl">⚽</span>
         </div>
@@ -247,7 +256,7 @@ export default function Profile() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#0a0b1e] via-[#1a1b3e] to-[#0a0b1e] text-white flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-[#5C80AD] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-8 h-8 border-2 border-red-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-300">Chargement du profil...</p>
         </div>
       </div>
@@ -276,8 +285,12 @@ export default function Profile() {
       </div>
       {/* Navigation Header */}
       <nav className="flex items-center justify-between p-6 lg:px-12 relative z-10">
-        <div className="text-xl font-bold">
-          ARENA NETWORK
+        <div className="flex items-center">
+          <img 
+            src="/logo-kolize.png" 
+            alt="KOLISE Logo" 
+            className="h-50 w-auto ml-10"
+          />
         </div>
         <div className="hidden md:flex items-center space-x-8">
           <a href="/" className="text-gray-300 hover:text-white transition-colors duration-300">Home</a>
@@ -416,7 +429,7 @@ export default function Profile() {
       {/* Popup de récompense */}
       {showRewardPopup && (
         <div className="fixed inset-0 bg-black/50 flex items-end justify-center z-50">
-          <div className="bg-gradient-to-br from-[#1a1b3e] to-[#0a0b1e] border border-[#5C80AD]/30 rounded-t-2xl p-8 max-w-md w-full mx-4 mb-[400px] animate-in slide-in-from-bottom duration-300">
+          <div className="bg-gradient-to-br from-[#1a1b3e] to-[#0a0b1e] border border-red-600/30 rounded-t-2xl p-8 max-w-md w-full mx-4 mb-[400px] animate-in slide-in-from-bottom duration-300">
             {/* Image du t-shirt */}
             <div className="flex justify-center mb-6">
               <img 
@@ -442,7 +455,7 @@ export default function Profile() {
               </button>
               <button 
                 onClick={handleClaimReward}
-                className="flex-1 px-4 py-3 bg-[#5C80AD] text-white rounded-md hover:bg-[#5C80AD]/80 transition-colors font-semibold"
+                className="flex-1 px-4 py-3 bg-red-600 text-white rounded-md hover:bg-red-600/80 transition-colors font-semibold"
               >
                 Claim
               </button>

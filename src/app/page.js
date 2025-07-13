@@ -1,4 +1,84 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useWallet } from './WalletContext';
+
 export default function Home() {
+  const [username, setUsername] = useState('');
+  const [isCheckingProfile, setIsCheckingProfile] = useState(false);
+  const { 
+    address, 
+    isConnected, 
+    isLoading, 
+    connectWallet, 
+    disconnectWallet, 
+    checkProfile, 
+    getUsername 
+  } = useWallet();
+  const router = useRouter();
+
+  const handleWalletConnection = async () => {
+    if (isConnected) {
+      disconnectWallet();
+      setUsername('');
+      return;
+    }
+
+    try {
+      await connectWallet();
+    } catch (error) {
+      console.error('Erreur de connexion:', error);
+    }
+  };
+
+  useEffect(() => {
+    const checkUserProfile = async () => {
+      if (!isConnected || !address) return;
+
+      setIsCheckingProfile(true);
+      try {
+        const hasProfile = await checkProfile(address);
+        
+        if (hasProfile) {
+          const userUsername = await getUsername(address);
+          if (userUsername) {
+            setUsername(userUsername);
+            router.push('/profile');
+          } else {
+            router.push('/create-profile');
+          }
+        } else {
+          router.push('/create-profile');
+        }
+      } catch (error) {
+        console.error('Erreur lors de la vérification du profil:', error);
+        router.push('/create-profile');
+      } finally {
+        setIsCheckingProfile(false);
+      }
+    };
+
+    if (isConnected && address) {
+      checkUserProfile();
+    }
+  }, [isConnected, address, checkProfile, getUsername, router]);
+
+  const getButtonText = () => {
+    if (isLoading) return 'Connexion...';
+    if (isCheckingProfile) return 'Vérification...';
+    if (isConnected && username) return `@${username}`;
+    if (isConnected) return 'Connecté';
+    return 'Connecter Wallet';
+  };
+
+  const getButtonAction = () => {
+    if (isConnected && username) {
+      return () => router.push('/dashboard');
+    }
+    return handleWalletConnection;
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0a0b1e] via-[#1a1b3e] to-[#0a0b1e] text-white relative overflow-hidden">
       {/* Navigation Header */}
@@ -14,12 +94,28 @@ export default function Home() {
           <a href="/profile" className="hover:text-[#5C80AD] transition-colors">Profile</a>
         </div>
         <div className="flex items-center space-x-4">
-          <button className="px-4 py-2 border border-white/20 rounded-md hover:bg-white/10 transition-colors">
+          <button onClick={connectWallet}className="px-4 py-2 border border-white/20 rounded-md hover:bg-white/10 transition-colors">
             Log In
           </button>
-          <button className="px-4 py-2 bg-[#5C80AD] rounded-md hover:bg-[#4A8FE7] transition-colors">
-            Sign In
+          <button 
+            onClick={getButtonAction()}
+            disabled={isLoading || isCheckingProfile}
+            className={`px-4 py-2 rounded-md transition-colors font-medium ${
+              isConnected && username 
+                ? 'bg-green-600 hover:bg-green-700 text-white' 
+                : 'bg-[#5C80AD] hover:bg-[#4A8FE7]'
+            } disabled:opacity-50 disabled:cursor-not-allowed`}
+          >
+            {getButtonText()}
           </button>
+          {isConnected && (
+            <button
+              onClick={disconnectWallet}
+              className="px-4 py-2 border border-red-500/50 text-red-400 rounded-md hover:bg-red-500/10 transition-colors"
+            >
+              Déconnecter
+            </button>
+          )}
         </div>
       </nav>
 
@@ -37,6 +133,15 @@ export default function Home() {
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-[#5C80AD] rounded-full"></div>
         </div>
 
+        {/* Connection Status */}
+        {isConnected && (
+          <div className="mb-6 px-4 py-2 bg-green-500/20 border border-green-500/30 rounded-md">
+            <p className="text-green-400 text-sm">
+              {username ? `Connecté en tant que @${username}` : 'Wallet connecté'}
+            </p>
+          </div>
+        )}
+
         {/* Main Title */}
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 max-w-4xl leading-tight">
           A Web3 That Is Ethical
@@ -52,8 +157,17 @@ export default function Home() {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 mb-20">
-          <button className="px-8 py-3 bg-[#5C80AD] rounded-md hover:bg-[#4A8FE7] transition-colors font-medium">
-            Explore Platform
+          <button 
+            onClick={() => {
+              if (isConnected && username) {
+                router.push('/dashboard');
+              } else {
+                handleWalletConnection();
+              }
+            }}
+            className="px-8 py-3 bg-[#5C80AD] rounded-md hover:bg-[#4A8FE7] transition-colors font-medium"
+          >
+            {isConnected && username ? 'Accéder au Dashboard' : 'Explore Platform'}
           </button>
           <button className="px-8 py-3 border border-white/20 rounded-md hover:bg-white/10 transition-colors">
             View All Products

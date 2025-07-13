@@ -198,20 +198,19 @@ const useSimulatedContract = (user) => {
 };
 
 const Navbar = () => (
-  <nav className="sticky top-0 z-50 px-4 sm:px-6 lg:px-8 py-4 bg-[#0a0b1e]/90 backdrop-blur-md border-b border-[#5C80AD]/30">
-    <div className="flex items-center justify-between max-w-7xl mx-auto">
-      <div className="text-2xl font-bold text-white">
-        COLISEUM
-      </div>
-      <div className="hidden md:flex items-center gap-8">
-        <Link href="/" className="text-gray-300 hover:text-[#5C80AD] transition-colors duration-200 font-medium">Home</Link>
-        <Link href="/coliseum" className="text-[#5C80AD] font-medium">Coliseum</Link>
-        <Link href="/duel" className="text-gray-300 hover:text-[#5C80AD] transition-colors duration-200 font-medium">Duels</Link>
-        <Link href="#" className="text-gray-300 hover:text-[#5C80AD] transition-colors duration-200 font-medium">Rankings</Link>
-        <Link href="#" className="text-gray-300 hover:text-[#5C80AD] transition-colors duration-200 font-medium">Profile</Link>
-      </div>
-      <button className="px-6 py-2 bg-[#5C80AD] text-white rounded-md hover:bg-[#4A8FE7] transition-colors duration-200 font-semibold">
-        Connect Wallet
+  <nav className="flex items-center justify-between p-6 lg:px-12 relative z-10">
+    <div className="text-xl font-bold tracking-wider">
+      KOLISE
+    </div>
+    <div className="hidden md:flex items-center space-x-8">
+      <Link href="/" className="text-gray-300 hover:text-white transition-colors duration-300">Home</Link>
+      <Link href="/coliseum" className="text-red-400 font-medium">Coliseum</Link>
+      <Link href="/duel" className="text-gray-300 hover:text-white transition-colors duration-300">Duels</Link>
+      <Link href="/profile" className="text-gray-300 hover:text-white transition-colors duration-300">Profile</Link>
+    </div>
+    <div className="flex items-center space-x-4">
+      <button className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-300">
+        Connecter Wallet
       </button>
     </div>
   </nav>
@@ -472,13 +471,13 @@ const EventFilters = ({ onFilterChange, onSortChange, filter, sort }) => (
     <div className="flex gap-2 flex-wrap">
       <button
         onClick={() => onFilterChange('all')}
-        className={`px-4 py-3 rounded-md text-sm font-medium ${filter === 'all' ? 'bg-[#5C80AD] text-white' : 'bg-white/5 text-white hover:bg-white/10'} transition-all duration-200`}
+        className={`px-4 py-3 rounded-md text-sm font-medium ${filter === 'all' ? 'bg-red-600 text-white' : 'bg-white/5 text-white hover:bg-white/10'} transition-all duration-200`}
       >
         All
       </button>
       <button
         onClick={() => onFilterChange('Prediction')}
-        className={`px-4 py-3 rounded-md text-sm font-medium ${filter === 'Prediction' ? 'bg-[#5C80AD] text-white' : 'bg-white/5 text-white hover:bg-white/10'} transition-all duration-200`}
+        className={`px-4 py-3 rounded-md text-sm font-medium ${filter === 'Prediction' ? 'bg-red-600 text-white' : 'bg-white/5 text-white hover:bg-white/10'} transition-all duration-200`}
       >
         Predictions
       </button>
@@ -490,7 +489,7 @@ const EventFilters = ({ onFilterChange, onSortChange, filter, sort }) => (
       </button>
       <button
         onClick={() => onFilterChange('Raffle')}
-        className={`px-4 py-3 rounded-md text-sm font-medium ${filter === 'Raffle' ? 'bg-[#5C80AD] text-white' : 'bg-white/5 text-white hover:bg-white/10'} transition-all duration-200`}
+        className={`px-4 py-3 rounded-md text-sm font-medium ${filter === 'Raffle' ? 'bg-red-600 text-white' : 'bg-white/5 text-white hover:bg-white/10'} transition-all duration-200`}
       >
         NFT Raffles
       </button>
@@ -984,7 +983,26 @@ export default function Coliseum() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0a0b1e] via-[#1a1b3e] to-[#0a0b1e] text-white">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 left-10 w-3 h-3 bg-red-500 rounded-full animate-pulse opacity-60"></div>
+        <div className="absolute top-40 right-20 w-2 h-2 bg-red-400 rounded-full animate-pulse delay-300 opacity-40"></div>
+        <div className="absolute bottom-20 left-20 w-4 h-4 bg-red-500 rounded-full animate-pulse delay-700 opacity-50"></div>
+        <div className="absolute bottom-40 right-10 w-9 h-8 bg-red-400 rounded-full animate-pulse delay-1000 opacity-30"></div>
+        <div className="absolute top-1/2 left-1/4 w-2 h-2 bg-red-500 rounded-full animate-pulse delay-500 opacity-40"></div>
+        <div className="absolute top-1/3 right-1/3 w-3 h-3 bg-red-400 rounded-full animate-pulse delay-200 opacity-30"></div>
+        <div className="absolute bottom-1/3 left-1/3 w-2 h-2 bg-red-500 rounded-full animate-pulse delay-800 opacity-50"></div>
+        <div className="absolute top-3/4 right-1/4 w-3 h-3 bg-red-400 rounded-full animate-pulse delay-400 opacity-40"></div>
+        
+        {/* Geometric Lines */}
+        <div className="absolute top-1/4 right-5 w-62 h-62 border border-red-500/20 transform rotate-45"></div>
+        <div className="absolute bottom-1/4 left-20 w-24 h-24 border border-red-400/15 transform rotate-12"></div>
+        <div className="absolute top-1/3 left-1/2 w-20 h-20 border border-red-500/10 transform -rotate-30"></div>
+      </div>
+      <div className="absolute inset-0 overflow-hidden">
+      </div>
+
       <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">

@@ -124,10 +124,10 @@ const Navbar = () => (
         <Link href="/" className="text-gray-300 hover:text-[#5C80AD] transition-colors duration-200 font-medium">Home</Link>
         <Link href="/coliseum" className="text-gray-300 hover:text-[#5C80AD] transition-colors duration-200 font-medium">Coliseum</Link>
         <Link href="/duel" className="text-[#5C80AD] font-medium">Duels</Link>
-        <Link href="#" className="text-gray-300 hover:text-[#5C80AD] transition-colors duration-200 font-medium">Rankings</Link>
-        <Link href="#" className="text-gray-300 hover:text-[#5C80AD] transition-colors duration-200 font-medium">Profile</Link>
+        
+        <Link href="/profile" className="text-gray-300 hover:text-[#5C80AD] transition-colors duration-200 font-medium">Profile</Link>
       </div>
-      <button className="px-6 py-2 bg-[#5C80AD] text-white rounded-md hover:bg-[#4A8FE7] transition-colors duration-200 font-semibold">
+      <button className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-300">
         Connect Wallet
       </button>
     </div>
@@ -238,7 +238,7 @@ const DuelCard = memo(function DuelCard({ duel, onSelect }) {
       
       <div className="flex justify-between text-xs text-gray-400 mb-4">
         <div className="flex items-center gap-1">
-          <Zap size={12} className="text-[#5C80AD]" />
+          <Zap size={12} className="text-red-400" />
           <span>{duel.chzPot.toLocaleString()} CHZ</span>
         </div>
         <div className="flex items-center gap-1">
@@ -251,14 +251,14 @@ const DuelCard = memo(function DuelCard({ duel, onSelect }) {
         <div className="text-xs text-gray-400 mb-1">CHZ Prize Pool</div>
         <div className="w-full bg-white/10 rounded-full h-1.5">
           <div
-            className="bg-[#5C80AD] h-1.5 rounded-full transition-all duration-300 animate-pulse"
+            className="bg-red-500 h-1.5 rounded-full transition-all duration-300 animate-pulse"
             style={{ width: `${Math.min((duel.chzPot / 1000000) * 100, 100)}%` }}
           ></div>
         </div>
       </div>
       
       <button
-        className={`w-full py-3 mt-4 rounded-md text-sm font-medium text-white bg-[#5C80AD] hover:bg-[#4A8FE7] hover:shadow-[#5C80AD]/30 transition-all duration-200 ${duel.isResolved ? 'opacity-50 cursor-not-allowed' : ''}`}
+        className={`w-full py-3 mt-4 rounded-lg text-sm font-medium text-white bg-red-600 hover:bg-red-700 hover:shadow-red-500/30 transition-all duration-200 ${duel.isResolved ? 'opacity-50 cursor-not-allowed' : ''}`}
         disabled={duel.isResolved}
       >
         {duel.isResolved ? 'View Results' : 'Join Duel'}
@@ -708,11 +708,11 @@ const DuelCreationModal = ({ team1, team2, onClose, onCreateDuel }) => {
 };
 
 const PlatformStats = () => (
-  <div className="bg-white/5 rounded-xl p-6 border border-white/10">
-    <h2 className="text-xl font-semibold text-[#5C80AD] mb-6 text-center">Platform Statistics</h2>
+  <div className="backdrop-blur-xl bg-white/5 border border-white/20 rounded-2xl p-8 relative overflow-hidden">
+    <h2 className="text-2xl font-bold text-red-400 mb-6 text-center">Platform Statistics</h2>
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
       <motion.div className="text-center" whileHover={{ scale: 1.05 }}>
-        <div className="text-2xl font-bold text-[#5C80AD]">{platformMetrics.totalCHZLocked.toLocaleString()}</div>
+        <div className="text-2xl font-bold text-red-400">{platformMetrics.totalCHZLocked.toLocaleString()}</div>
         <div className="text-sm text-gray-400">CHZ Locked</div>
       </motion.div>
       <motion.div className="text-center" whileHover={{ scale: 1.05 }}>
@@ -720,7 +720,7 @@ const PlatformStats = () => (
         <div className="text-sm text-gray-400">Active Duels</div>
       </motion.div>
       <motion.div className="text-center" whileHover={{ scale: 1.05 }}>
-        <div className="text-2xl font-bold text-[#5C80AD]">{platformMetrics.totalParticipants.toLocaleString()}</div>
+        <div className="text-2xl font-bold text-red-400">{platformMetrics.totalParticipants.toLocaleString()}</div>
         <div className="text-sm text-gray-400">Participants</div>
       </motion.div>
       <motion.div className="text-center" whileHover={{ scale: 1.05 }}>
@@ -728,6 +728,7 @@ const PlatformStats = () => (
         <div className="text-sm text-gray-400">Avg Multiplier</div>
       </motion.div>
     </div>
+    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0 animate-pulse mix-blend-overlay"></div>
   </div>
 );
 
@@ -741,7 +742,25 @@ export default function Duels() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0a0b1e] via-[#1a1b3e] to-[#0a0b1e] text-white">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+       {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 left-10 w-3 h-3 bg-red-500 rounded-full animate-pulse opacity-60"></div>
+        <div className="absolute top-40 right-20 w-2 h-2 bg-red-400 rounded-full animate-pulse delay-300 opacity-40"></div>
+        <div className="absolute bottom-20 left-20 w-4 h-4 bg-red-500 rounded-full animate-pulse delay-700 opacity-50"></div>
+        <div className="absolute bottom-40 right-10 w-9 h-8 bg-red-400 rounded-full animate-pulse delay-1000 opacity-30"></div>
+        <div className="absolute top-1/2 left-1/4 w-2 h-2 bg-red-500 rounded-full animate-pulse delay-500 opacity-40"></div>
+        <div className="absolute top-1/3 right-1/3 w-3 h-3 bg-red-400 rounded-full animate-pulse delay-200 opacity-30"></div>
+        <div className="absolute bottom-1/3 left-1/3 w-2 h-2 bg-red-500 rounded-full animate-pulse delay-800 opacity-50"></div>
+        <div className="absolute top-3/4 right-1/4 w-3 h-3 bg-red-400 rounded-full animate-pulse delay-400 opacity-40"></div>
+        
+        {/* Geometric Lines */}
+        <div className="absolute top-1/4 right-5 w-62 h-62 border border-red-500/20 transform rotate-45"></div>
+        <div className="absolute bottom-1/4 left-20 w-24 h-24 border border-red-400/15 transform rotate-12"></div>
+        <div className="absolute top-1/3 left-1/2 w-20 h-20 border border-red-500/10 transform -rotate-30"></div>
+      </div>
+      <div className="absolute inset-0 overflow-hidden">
+      </div>
       <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
@@ -792,7 +811,7 @@ export default function Duels() {
           <div className="text-center mb-6">
             <button
               onClick={() => setShowDragDrop(!showDragDrop)}
-              className="px-6 py-3 bg-[#5C80AD] text-white rounded-md text-sm font-medium hover:bg-[#4A8FE7] transition-all duration-200 focus:ring-2 focus:ring-[#5C80AD] focus:outline-none"
+              className="px-6 py-3 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 transition-all duration-200 focus:ring-2 focus:ring-red-600 focus:outline-none"
             >
               {showDragDrop ? 'Hide Duel Creator' : 'Create a Duel'}
             </button>

@@ -2,6 +2,8 @@
 import { Suspense, useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, OrbitControls, Environment, Center } from '@react-three/drei';
+import { useRouter } from 'next/navigation';
+import { useWallet } from '../WalletContext';
 
 // Précharger les modèles au niveau du module
 useGLTF.preload('/avatar/avatar1.glb');
@@ -193,6 +195,10 @@ export default function Profile() {
   const [showRewardPopup, setShowRewardPopup] = useState(false);
   const [currentAvatar, setCurrentAvatar] = useState('avatar1');
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [username, setUsername] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const { address, isConnected, getUsername, disconnectWallet } = useWallet();
+  const router = useRouter();
   
   const handleClaimReward = async () => {
     console.log('Changement vers avatar2...');
@@ -206,6 +212,47 @@ export default function Profile() {
       console.log('Avatar changé vers avatar2');
     }, 300);
   };
+
+  useEffect(() => {
+    const checkUserProfile = async () => {
+      if (!isConnected) {
+        router.push('/');
+        return;
+      }
+
+      try {
+        const userUsername = await getUsername(address);
+        if (userUsername) {
+          setUsername(userUsername);
+        } else {
+          router.push('/create-profile');
+        }
+      } catch (error) {
+        console.error('Erreur lors de la récupération du profil:', error);
+        router.push('/create-profile');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkUserProfile();
+  }, [isConnected, address, getUsername, router]);
+
+  const handleDisconnect = () => {
+    disconnectWallet();
+    router.push('/');
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-[#0a0b1e] via-[#1a1b3e] to-[#0a0b1e] text-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 border-2 border-[#5C80AD] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-300">Chargement du profil...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0a0b1e] via-[#1a1b3e] to-[#0a0b1e] text-white relative overflow-hidden">
@@ -247,7 +294,7 @@ export default function Profile() {
             <div className="w-8 h-8 bg-[#5C80AD] rounded-full flex items-center justify-center mr-3">
               <span className="text-sm font-bold">🛡️</span>
             </div>
-            <h1 className="text-2xl font-bold">Thox</h1>
+            <h1 className="text-2xl font-bold">@{username}</h1>
           </div>
 
           {/* 3D Avatar - Taille augmentée */}

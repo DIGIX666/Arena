@@ -26,7 +26,7 @@ const userProfile = {
 };
 
 // GROSSES ARÈNES LONG TERME avec gros enjeux
-const seasonalArenasData = [
+const seasonalKOLISEData = [
   { 
     id: 1, 
     type: 'Prediction', 
@@ -155,8 +155,8 @@ const platformMetrics = {
   totalCHZLocked: 8947392,
   totalUSDCLocked: 3456789,
   totalAccumulated: 1234567,
-  activeArenas: 24,
-  resolvedArenas: 156,
+  activeKOLISE: 24,
+  resolvedKOLISE: 156,
   avgVolatility: 18.7,
   protectionsTriggered: 34,
   emergencyConversions: 2,
@@ -171,15 +171,15 @@ const sponsorsData = [
   { id: 4, name: "Partner D", logo: "/sponsor4.png" },
 ];
 
-const allEvents = [...seasonalArenasData, ...nftRafflesData];
+const allEvents = [...seasonalKOLISEData, ...nftRafflesData];
 
 const useSimulatedContract = (user) => {
   const [transactionState, setTransactionState] = useState('idle');
 
-  const enterSeasonal = async (arena, outcome, withInsurance) => {
+  const enterSeasonal = async (kolise, outcome, withInsurance) => {
     setTransactionState('pending');
-    const insuranceCost = (withInsurance && user.fanTokens < arena.freeInsuranceThreshold) ? arena.insuranceFee : 0;
-    const totalCost = arena.entryFeeCHZ + insuranceCost;
+    const insuranceCost = (withInsurance && user.fanTokens < kolise.freeInsuranceThreshold) ? kolise.insuranceFee : 0;
+    const totalCost = kolise.entryFeeCHZ + insuranceCost;
     if (user.chzBalance < totalCost) {
       setTransactionState('error');
       return;
@@ -199,9 +199,13 @@ const useSimulatedContract = (user) => {
 
 const Navbar = () => (
   <nav className="flex items-center justify-between p-6 lg:px-12 relative z-10">
-    <div className="text-xl font-bold tracking-wider">
-      KOLISE
-    </div>
+      <div className="flex items-center">
+        <img 
+          src="/logo-kolize.png" 
+          alt="KOLISE Logo" 
+          className="h-50 w-auto ml-10"
+        />
+      </div>
     <div className="hidden md:flex items-center space-x-8">
       <Link href="/" className="text-gray-300 hover:text-white transition-colors duration-300">Home</Link>
       <Link href="/coliseum" className="text-red-400 font-medium">Coliseum</Link>
@@ -218,11 +222,11 @@ const Navbar = () => (
 
 const UserProfileDashboard = ({ user }) => (
   <div className="bg-white/5 rounded-xl p-6 border border-white/10">
-    <h2 className="text-xl font-semibold text-[#5C80AD] mb-6">Your Dashboard</h2>
+    <h2 className="text-xl font-semibold text-red-400 mb-6">Your Dashboard</h2>
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-      <StatCard icon={<Award size={18} className="text-[#5C80AD]" />} label="Points" value={user.points.toLocaleString()} colorClass="text-[#5C80AD]" />
+      <StatCard icon={<Award size={18} className="text-red-400" />} label="Points" value={user.points.toLocaleString()} colorClass="text-red-400" />
       <StatCard icon={<Star size={18} className="text-white" />} label="Fan Tokens" value={user.fanTokens.toLocaleString()} colorClass="text-white" />
-      <StatCard icon={<Zap size={18} className="text-[#5C80AD]" />} label="CHZ Balance" value={user.chzBalance.toFixed(2)} colorClass="text-[#5C80AD]" />
+      <StatCard icon={<Zap size={18} className="text-red-400" />} label="CHZ Balance" value={user.chzBalance.toFixed(2)} colorClass="text-red-400" />
       <StatCard icon={<ShieldCheck size={18} className="text-white" />} label="USDC Balance" value={user.usdcBalance.toFixed(2)} colorClass="text-white" />
     </div>
   </div>
@@ -230,11 +234,11 @@ const UserProfileDashboard = ({ user }) => (
 
 const StatCard = ({ icon, label, value, colorClass = "text-[#21A179]" }) => (
   <motion.div 
-    className="bg-white/5 p-4 rounded-lg flex items-center gap-3 hover:bg-white/10 hover:shadow-[#5C80AD]/30 transition-all duration-200"
+    className="bg-white/5 p-4 rounded-lg flex items-center gap-3 hover:bg-white/10 hover:shadow-red-500/30 transition-all duration-200"
     whileHover={{ scale: 1.03, rotate: 1 }}
     whileTap={{ scale: 0.98 }}
   >
-    <div className="p-2 bg-[#5C80AD]/20 rounded-full">{icon}</div>
+    <div className="p-2 bg-red-500/20 rounded-full">{icon}</div>
     <div>
       <div className="text-sm text-gray-400">{label}</div>
       <div className={`text-lg font-semibold ${colorClass}`}>{value}</div>
@@ -268,7 +272,7 @@ const CountdownTimer = ({ deadline }) => {
 
 const EventCard = memo(function EventCard({ event, onSelect }) {
   const theme = event.type === 'Prediction' 
-    ? { color: 'text-[#5C80AD]', bgColor: 'bg-white/5', borderColor: 'border-white/10' }
+    ? { color: 'text-red-400', bgColor: 'bg-white/5', borderColor: 'border-white/10' }
     : event.type === 'Faction'
     ? { color: 'text-[#ff6b35]', bgColor: 'bg-gradient-to-br from-red-500/10 to-orange-500/10', borderColor: 'border-red-400/20' }
     : { color: 'text-white', bgColor: 'bg-white/5', borderColor: 'border-white/10' };
@@ -316,7 +320,7 @@ const EventCard = memo(function EventCard({ event, onSelect }) {
   return (
     <motion.div
       onClick={() => onSelect(event)}
-      className={`cursor-pointer rounded-xl p-5 relative overflow-hidden ${theme.bgColor} border ${theme.borderColor} hover:shadow-lg ${event.type === 'Faction' ? 'hover:shadow-red-500/40' : 'hover:shadow-[#5C80AD]/30'} transition-all duration-300`}
+      className={`cursor-pointer rounded-xl p-5 relative overflow-hidden ${theme.bgColor} border ${theme.borderColor} hover:shadow-lg ${event.type === 'Faction' ? 'hover:shadow-red-500/40' : 'hover:shadow-red-500/30'} transition-all duration-300`}
       initial={animationProps.initial}
       animate={animationProps.animate}
       whileHover={animationProps.whileHover}
@@ -365,7 +369,7 @@ const EventCard = memo(function EventCard({ event, onSelect }) {
             ) : (
               <Ticket size={14} />
             )}
-            {event.type === 'Prediction' ? 'Prediction Arena' : event.type === 'Faction' ? (
+            {event.type === 'Prediction' ? 'Prediction KOLISE' : event.type === 'Faction' ? (
               <motion.span
                 animate={{
                   color: ['#ff6b35', '#ff8c00', '#ff4500', '#ff6b35']
@@ -381,7 +385,7 @@ const EventCard = memo(function EventCard({ event, onSelect }) {
               </motion.span>
             ) : 'NFT Raffle'}
           </div>
-          <h3 className={`text-base font-semibold ${event.type === 'Faction' ? 'text-[#ff6b35]' : 'text-[#5C80AD]'}`}>{event.title}</h3>
+          <h3 className={`text-base font-semibold ${event.type === 'Faction' ? 'text-[#ff6b35]' : 'text-red-400'}`}>{event.title}</h3>
           <p className="text-xs text-gray-400">{event.subtitle}</p>
           {(event.timeLeft || event.deadline) && (
             <div className="mt-2">
@@ -390,14 +394,14 @@ const EventCard = memo(function EventCard({ event, onSelect }) {
           )}
         </div>
         {event.protectionTriggered && (
-          <ShieldCheck className="text-[#5C80AD] flex-shrink-0" title="Volatility Protection Active" size={18} />
+          <ShieldCheck className="text-red-400 flex-shrink-0" title="Volatility Protection Active" size={18} />
         )}
       </div>
       
       {(event.type === 'Prediction' || event.type === 'Faction') && (
         <div className="flex justify-between text-xs text-gray-400 mb-4">
           <div className="flex items-center gap-1">
-            <Zap size={12} className={event.type === 'Faction' ? "text-[#ff6b35]" : "text-[#5C80AD]"} />
+            <Zap size={12} className={event.type === 'Faction' ? "text-[#ff6b35]" : "text-red-400"} />
             <span>{event.chzPot.toLocaleString()} CHZ</span>
           </div>
           <div className="flex items-center gap-1">
@@ -427,10 +431,10 @@ const EventCard = memo(function EventCard({ event, onSelect }) {
               alt="NFT Prize"
               width={60}
               height={60}
-              className="rounded-lg shadow-lg shadow-[#5C80AD]/30"
+              className="rounded-lg shadow-lg shadow-red-500/30"
             />
             <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-[#5C80AD]/20 to-transparent rounded-lg"
+              className="absolute inset-0 bg-gradient-to-r from-[#ef4444]/20 to-transparent rounded-lg"
               animate={{
                 opacity: [0.3, 0.7, 0.3]
               }}
@@ -449,7 +453,7 @@ const EventCard = memo(function EventCard({ event, onSelect }) {
           <div className="text-xs text-gray-400 mb-1">{event.type === 'Faction' ? 'Faction War Prize Pool' : 'CHZ Prize Pool'}</div>
           <div className="w-full bg-white/10 rounded-full h-1.5">
             <div
-              className={`${event.type === 'Faction' ? 'bg-gradient-to-r from-red-500 to-orange-500' : 'bg-[#5C80AD]'} h-1.5 rounded-full transition-all duration-300 animate-pulse`}
+              className={`${event.type === 'Faction' ? 'bg-gradient-to-r from-red-500 to-orange-500' : 'bg-red-500'} h-1.5 rounded-full transition-all duration-300 animate-pulse`}
               style={{ width: `${Math.min((event.chzPot / 5000000) * 100, 100)}%` }}
             ></div>
           </div>
@@ -457,10 +461,10 @@ const EventCard = memo(function EventCard({ event, onSelect }) {
       )}
       
       <button
-        className={`w-full py-3 mt-4 rounded-md text-sm font-medium text-white ${event.type === 'Faction' ? 'bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 hover:shadow-red-500/30' : 'bg-[#5C80AD] hover:bg-[#4A8FE7] hover:shadow-[#5C80AD]/30'} transition-all duration-200 ${event.isResolved ? 'opacity-50 cursor-not-allowed' : ''}`}
+        className={`w-full py-3 mt-4 rounded-md text-sm font-medium text-white ${event.type === 'Faction' ? 'bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 hover:shadow-red-500/30' : 'bg-red-500 hover:bg-red-700 hover:shadow-red-500/30'} transition-all duration-200 ${event.isResolved ? 'opacity-50 cursor-not-allowed' : ''}`}
         disabled={event.isResolved}
       >
-        {event.isResolved ? 'View Results' : event.type === 'Prediction' ? 'Enter Arena' : event.type === 'Faction' ? 'Join Battle' : 'Participate'}
+        {event.isResolved ? 'View Results' : event.type === 'Prediction' ? 'Enter KOLISE' : event.type === 'Faction' ? 'Join Battle' : 'Participate'}
       </button>
     </motion.div>
   );
@@ -507,12 +511,12 @@ const EventFilters = ({ onFilterChange, onSortChange, filter, sort }) => (
 
 const PlatformStats = () => (
   <div className="bg-white/5 rounded-xl p-6 border border-white/10">
-    <h2 className="text-xl font-semibold text-[#5C80AD] mb-6 text-center">Platform Statistics</h2>
+    <h2 className="text-xl font-semibold text-red-400 mb-6 text-center">Platform Statistics</h2>
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-      <PlatformStatItem icon={<Package size={20} className="text-[#5C80AD]" />} label="Total CHZ Locked" value={platformMetrics.totalCHZLocked.toLocaleString()} />
-      <PlatformStatItem icon={<ShieldCheck size={20} className="text-[#5C80AD]" />} label="Total USDC Secured" value={platformMetrics.totalUSDCLocked.toLocaleString()} />
-      <PlatformStatItem icon={<BarChart size={20} className="text-white" />} label="Active Arenas" value={platformMetrics.activeArenas} />
-      <PlatformStatItem icon={<Users size={20} className="text-[#5C80AD]" />} label="Total Users" value={platformMetrics.totalUsers.toLocaleString()} />
+      <PlatformStatItem icon={<Package size={20} className="text-red-400" />} label="Total CHZ Locked" value={platformMetrics.totalCHZLocked.toLocaleString()} />
+      <PlatformStatItem icon={<ShieldCheck size={20} className="text-red-400" />} label="Total USDC Secured" value={platformMetrics.totalUSDCLocked.toLocaleString()} />
+      <PlatformStatItem icon={<BarChart size={20} className="text-white" />} label="Active KOLISE" value={platformMetrics.activeKOLISE} />
+      <PlatformStatItem icon={<Users size={20} className="text-red-400" />} label="Total Users" value={platformMetrics.totalUsers.toLocaleString()} />
     </div>
   </div>
 );
@@ -531,7 +535,7 @@ const PlatformStatItem = ({ icon, label, value }) => (
 
 const Sponsors = () => (
   <div className="bg-white/5 rounded-xl p-6 border border-white/10">
-    <h2 className="text-xl font-semibold text-[#5C80AD] mb-6 text-center">Our Partners</h2>
+    <h2 className="text-xl font-semibold text-red-400 mb-6 text-center">Our Partners</h2>
     <p className="text-sm text-gray-400 text-center mb-6 max-w-2xl mx-auto">
       Powered by leading sports and blockchain brands, bringing fans closer to the action.
     </p>
@@ -561,27 +565,27 @@ const Sponsors = () => (
 
 const FanEngagementHub = () => (
   <div className="bg-white/5 rounded-xl p-6 border border-white/10">
-    <h2 className="text-xl font-semibold text-[#5C80AD] mb-4 text-center">Fan Engagement Hub</h2>
+    <h2 className="text-xl font-semibold text-red-400 mb-4 text-center">Fan Engagement Hub</h2>
     <p className="text-sm text-gray-400 text-center mb-6 max-w-2xl mx-auto">
-      Join the ultimate fan arena—compete, vote, and share your passion for sports.
+      Join the ultimate fan kolise—compete, vote, and share your passion for sports.
     </p>
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
       <EngagementCard 
-        icon={<UserPlus size={24} className="text-[#5C80AD]" />}
+        icon={<UserPlus size={24} className="text-red-400" />}
         title="Join the Leaderboard"
         description="Climb the ranks and showcase your prediction skills."
         action="View Rankings"
         href="#"
       />
       <EngagementCard 
-        icon={<Vote size={24} className="text-[#5C80AD]" />}
+        icon={<Vote size={24} className="text-red-400" />}
         title="Vote on Outcomes"
         description="Have your say in exclusive fan-driven polls."
         action="Vote Now"
         href="#"
       />
       <EngagementCard 
-        icon={<Share2 size={24} className="text-[#5C80AD]" />}
+        icon={<Share2 size={24} className="text-red-400" />}
         title="Share Your Prediction"
         description="Spread the word and rally your community."
         action="Share"
@@ -593,12 +597,12 @@ const FanEngagementHub = () => (
 
 const HowItWorks = () => (
   <div className="text-center">
-    <h2 className="text-xl font-semibold text-[#5C80AD] mb-4">How It Works</h2>
-    <p className="text-sm text-gray-400 max-w-2xl mx-auto mb-8">Enter the ultimate arena of sports prediction, secured by blockchain technology.</p>
+    <h2 className="text-xl font-semibold text-red-400 mb-4">How It Works</h2>
+    <p className="text-sm text-gray-400 max-w-2xl mx-auto mb-8">Enter the ultimate kolise of sports prediction, secured by blockchain technology.</p>
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-      <HowToCard icon={<Target size={28} className="text-[#5C80AD]" />} title="1. Choose" description="Select an arena and predict an outcome." />
-      <HowToCard icon={<Shield size={28} className="text-[#5C80AD]" />} title="2. Secure" description="Your stake is locked on-chain and protected against volatility." />
-      <HowToCard icon={<TrophyIcon size={28} className="text-[#5C80AD]" />} title="3. Win" description="Receive instant rewards and exclusive NFT trophies." />
+      <HowToCard icon={<Target size={28} className="text-red-400" />} title="1. Choose" description="Select an kolise and predict an outcome." />
+      <HowToCard icon={<Shield size={28} className="text-red-400" />} title="2. Secure" description="Your stake is locked on-chain and protected against volatility." />
+      <HowToCard icon={<TrophyIcon size={28} className="text-red-400" />} title="3. Win" description="Receive instant rewards and exclusive NFT trophies." />
     </div>
   </div>
 );
@@ -615,11 +619,11 @@ const EngagementCard = ({ icon, title, description, action, href }) => (
     >
       {icon}
     </motion.div>
-    <h3 className="text-base font-semibold text-[#5C80AD] mb-2">{title}</h3>
+    <h3 className="text-base font-semibold text-red-400 mb-2">{title}</h3>
     <p className="text-xs text-gray-400 mb-3">{description}</p>
     <Link
       href={href}
-      className="inline-block px-4 py-3 bg-[#5C80AD] text-white rounded-md text-sm font-medium hover:bg-[#4A8FE7] hover:shadow-[#5C80AD]/30 focus:ring-2 focus:ring-[#5C80AD] focus:outline-none transition-all duration-200 min-h-[44px]"
+      className="inline-block px-4 py-3 bg-red-500 text-white rounded-md text-sm font-medium hover:bg-red-700 hover:shadow-red-500/30 focus:ring-2 focus:ring-red-400 focus:outline-none transition-all duration-200 min-h-[44px]"
     >
       {action}
     </Link>
@@ -638,7 +642,7 @@ const HowToCard = ({ icon, title, description }) => (
     >
       {icon}
     </motion.div>
-    <h3 className="text-base font-semibold text-[#5C80AD] mb-2">{title}</h3>
+    <h3 className="text-base font-semibold text-red-400 mb-2">{title}</h3>
     <p className="text-xs text-gray-400">{description}</p>
   </motion.div>
 );
@@ -654,7 +658,7 @@ const Modal = ({ isOpen, onClose, children, title }) => {
       transition={{ duration: 0.3 }}
     >
       <motion.div
-        className="w-full max-w-md bg-[#0a0b1e]/90 border border-white/10 rounded-lg shadow-2xl shadow-[#5C80AD]/20"
+        className="w-full max-w-md bg-[#0a0b1e]/90 border border-white/10 rounded-lg shadow-2xl shadow-red-500/20"
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
@@ -662,8 +666,8 @@ const Modal = ({ isOpen, onClose, children, title }) => {
       >
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-semibold text-[#5C80AD]">{title}</h2>
-            <button onClick={onClose} className="text-white hover:text-[#5C80AD] text-2xl focus:outline-none focus:ring-2 focus:ring-[#5C80AD] rounded-md w-8 h-8 flex items-center justify-center" aria-label="Close modal">×</button>
+            <h2 className="text-lg font-semibold text-red-400">{title}</h2>
+            <button onClick={onClose} className="text-white hover:text-red-400 text-2xl focus:outline-none focus:ring-2 focus:ring-red-400 rounded-md w-8 h-8 flex items-center justify-center" aria-label="Close modal">×</button>
           </div>
           {children}
         </div>
@@ -672,14 +676,14 @@ const Modal = ({ isOpen, onClose, children, title }) => {
   );
 };
 
-const PredictionArenaModal = ({ arena, onClose, currentUser }) => {
+const PredictionKOLISEModal = ({ kolise, onClose, currentUser }) => {
   const { transactionState, setTransactionState, enterSeasonal } = useSimulatedContract(currentUser);
   const [selectedOutcome, setSelectedOutcome] = useState(null);
-  const hasEnoughFanTokensForFreeInsurance = currentUser.fanTokens >= arena.freeInsuranceThreshold;
+  const hasEnoughFanTokensForFreeInsurance = currentUser.fanTokens >= kolise.freeInsuranceThreshold;
   const [withInsurance, setWithInsurance] = useState(hasEnoughFanTokensForFreeInsurance);
-  const insuranceCost = (withInsurance && !hasEnoughFanTokensForFreeInsurance) ? arena.insuranceFee : 0;
-  const totalCost = arena.entryFeeCHZ + insuranceCost;
-  const handlePlaceBet = async () => await enterSeasonal(arena, selectedOutcome, withInsurance);
+  const insuranceCost = (withInsurance && !hasEnoughFanTokensForFreeInsurance) ? kolise.insuranceFee : 0;
+  const totalCost = kolise.entryFeeCHZ + insuranceCost;
+  const handlePlaceBet = async () => await enterSeasonal(kolise, selectedOutcome, withInsurance);
 
   useEffect(() => {
     if (transactionState === 'success' || transactionState === 'error') {
@@ -692,23 +696,23 @@ const PredictionArenaModal = ({ arena, onClose, currentUser }) => {
   }, [transactionState, setTransactionState, onClose]);
 
   return (
-    <Modal isOpen={true} onClose={onClose} title={arena.title}>
-      <p className="text-sm text-gray-400 mb-4">{arena.subtitle}</p>
-      {arena.protectionTriggered && (
-        <div className="inline-flex items-center gap-2 text-xs text-[#5C80AD] bg-[#5C80AD]/10 px-3 py-1 rounded-full mb-4">
+    <Modal isOpen={true} onClose={onClose} title={kolise.title}>
+      <p className="text-sm text-gray-400 mb-4">{kolise.subtitle}</p>
+      {kolise.protectionTriggered && (
+        <div className="inline-flex items-center gap-2 text-xs text-red-400 bg-red-500/10 px-3 py-1 rounded-full mb-4">
           <ShieldCheck size={14} /> Volatility Protection Active
         </div>
       )}
       <div className="space-y-4">
         <h4 className="text-sm font-medium text-white">1. Choose an Outcome</h4>
         <div className="grid grid-cols-2 gap-2">
-          {arena.outcomes.map((o, i) => (
+          {kolise.outcomes.map((o, i) => (
             <button
               key={i}
               onClick={() => setSelectedOutcome(o)}
               className={`p-3 text-sm rounded-md border border-white/10 transition-all ${
-                selectedOutcome === o ? 'bg-[#5C80AD] text-white' : 'bg-white/5 text-white hover:bg-white/10'
-              } focus:ring-2 focus:ring-[#5C80AD] focus:outline-none`}
+                selectedOutcome === o ? 'bg-red-500 text-white' : 'bg-white/5 text-white hover:bg-white/10'
+              } focus:ring-2 focus:ring-red-400 focus:outline-none`}
             >
               {o}
             </button>
@@ -718,16 +722,16 @@ const PredictionArenaModal = ({ arena, onClose, currentUser }) => {
         <div className="bg-white/5 p-4 rounded-lg space-y-3 border border-white/10">
           <div className="flex justify-between items-center">
             <label htmlFor="insurance-toggle" className="flex items-center gap-2 cursor-pointer">
-              <ShieldCheck size={16} className={withInsurance ? "text-[#5C80AD]" : "text-gray-400"} />
+              <ShieldCheck size={16} className={withInsurance ? "text-red-400" : "text-gray-400"} />
               <span className="text-sm text-white">Volatility Insurance</span>
               {hasEnoughFanTokensForFreeInsurance && (
-                <span className="text-xs text-[#5C80AD] bg-[#5C80AD]/20 px-2 rounded-full">FREE</span>
+                <span className="text-xs text-red-400 bg-red-500/20 px-2 rounded-full">FREE</span>
               )}
             </label>
             <button
               onClick={() => setWithInsurance(!withInsurance)}
               disabled={hasEnoughFanTokensForFreeInsurance}
-              className={`relative w-10 h-5 rounded-full transition-colors ${withInsurance ? 'bg-[#5C80AD]' : 'bg-white/20'} focus:ring-2 focus:ring-[#5C80AD] focus:outline-none`}
+              className={`relative w-10 h-5 rounded-full transition-colors ${withInsurance ? 'bg-red-500' : 'bg-white/20'} focus:ring-2 focus:ring-red-400 focus:outline-none`}
               aria-label="Toggle volatility insurance"
               aria-checked={withInsurance}
               role="switch"
@@ -742,7 +746,7 @@ const PredictionArenaModal = ({ arena, onClose, currentUser }) => {
           <div className="border-t border-white/10 my-2"></div>
           <div className="flex justify-between text-sm text-gray-400">
             <span>Entry Fee:</span>
-            <span className="font-medium text-white">{arena.entryFeeCHZ} CHZ</span>
+            <span className="font-medium text-white">{kolise.entryFeeCHZ} CHZ</span>
           </div>
           <div className="flex justify-between text-sm text-gray-400">
             <span>Insurance:</span>
@@ -756,7 +760,7 @@ const PredictionArenaModal = ({ arena, onClose, currentUser }) => {
         <button
           onClick={handlePlaceBet}
           disabled={!selectedOutcome || transactionState === 'pending'}
-          className="w-full py-3 rounded-md font-medium bg-[#5C80AD] text-white flex items-center justify-center gap-2 hover:bg-[#4A8FE7] disabled:bg-white/10 disabled:text-gray-400 disabled:cursor-not-allowed focus:ring-2 focus:ring-[#5C80AD] focus:outline-none transition-all duration-200 min-h-[44px]"
+          className="w-full py-3 rounded-md font-medium bg-red-500 text-white flex items-center justify-center gap-2 hover:bg-red-700 disabled:bg-white/10 disabled:text-gray-400 disabled:cursor-not-allowed focus:ring-2 focus:ring-red-400 focus:outline-none transition-all duration-200 min-h-[44px]"
           aria-describedby="bet-total-cost"
         >
           {transactionState === 'pending' && <Loader2 className="animate-spin" size={18} />}
@@ -836,7 +840,7 @@ const FactionBattleModal = ({ faction, onClose, currentUser }) => {
       </div>
       <p className="text-sm text-gray-400 mb-4 text-center">{faction.subtitle}</p>
       {faction.protectionTriggered && (
-        <div className="inline-flex items-center gap-2 text-xs text-[#5C80AD] bg-[#5C80AD]/10 px-3 py-1 rounded-full mb-4">
+        <div className="inline-flex items-center gap-2 text-xs text-red-400 bg-red-500/10 px-3 py-1 rounded-full mb-4">
           <ShieldCheck size={14} /> Volatility Protection Active
         </div>
       )}
@@ -911,10 +915,10 @@ const NftRaffleModal = ({ raffle, onClose, currentUser }) => {
             alt="NFT Prize"
             width={120}
             height={120}
-            className="rounded-lg shadow-2xl shadow-[#5C80AD]/50"
+            className="rounded-lg shadow-2xl shadow-red-500/50"
           />
           <motion.div
-            className="absolute inset-0 bg-gradient-to-br from-[#5C80AD]/30 via-transparent to-[#4A8FE7]/20 rounded-lg"
+            className="absolute inset-0 bg-gradient-to-br from-[#ef4444]/30 via-transparent to-[#4A8FE7]/20 rounded-lg"
             animate={{
               opacity: [0.4, 0.8, 0.4]
             }}
@@ -929,11 +933,11 @@ const NftRaffleModal = ({ raffle, onClose, currentUser }) => {
       <p className="text-sm text-gray-400 mb-4 text-center">{raffle.subtitle}</p>
       <div className="bg-white/5 p-4 rounded-lg space-y-2 mb-4 border border-white/10" id="raffle-requirements">
         <h4 className="text-sm font-medium text-white mb-2">Requirements to Participate:</h4>
-        <div className={`flex justify-between text-sm ${currentUser.points >= raffle.requiredPoints ? 'text-[#5C80AD]' : 'text-red-500'}`}>
+        <div className={`flex justify-between text-sm ${currentUser.points >= raffle.requiredPoints ? 'text-red-400' : 'text-red-500'}`}>
           <span>{raffle.requiredPoints.toLocaleString()} Points Required</span>
           {currentUser.points >= raffle.requiredPoints && <CheckCircle size={14} />}
         </div>
-        <div className={`flex justify-between text-sm ${currentUser.fanTokens >= raffle.requiredFanTokens ? 'text-[#5C80AD]' : 'text-red-500'}`}>
+        <div className={`flex justify-between text-sm ${currentUser.fanTokens >= raffle.requiredFanTokens ? 'text-red-400' : 'text-red-500'}`}>
           <span>{raffle.requiredFanTokens.toLocaleString()} Fan Tokens Required</span>
           {currentUser.fanTokens >= raffle.requiredFanTokens && <CheckCircle size={14} />}
         </div>
@@ -942,7 +946,7 @@ const NftRaffleModal = ({ raffle, onClose, currentUser }) => {
       <button
         onClick={handleParticipate}
         disabled={!canEnter || transactionState === 'pending'}
-        className="w-full py-3 rounded-md font-medium bg-[#5C80AD] text-white flex items-center justify-center gap-2 hover:bg-[#4A8FE7] disabled:bg-white/10 disabled:text-gray-400 disabled:cursor-not-allowed focus:ring-2 focus:ring-[#5C80AD] focus:outline-none transition-all duration-200 min-h-[44px]"
+        className="w-full py-3 rounded-md font-medium bg-red-500 text-white flex items-center justify-center gap-2 hover:bg-red-700 disabled:bg-white/10 disabled:text-gray-400 disabled:cursor-not-allowed focus:ring-2 focus:ring-red-400 focus:outline-none transition-all duration-200 min-h-[44px]"
         aria-describedby="raffle-requirements"
       >
         {transactionState === 'pending' && <Loader2 className="animate-spin" size={18} />}
@@ -1012,7 +1016,7 @@ export default function Coliseum() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            Welcome to the <span className="text-[#5C80AD]">Coliseum</span>
+            Welcome to the <span className="text-red-400">Coliseum</span>
           </motion.h1>
           <motion.p
             className="text-lg text-gray-300 max-w-xl mx-auto"
@@ -1020,7 +1024,7 @@ export default function Coliseum() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            Where champions predict, stake, and win. Experience the future of sports engagement with blockchain-powered arenas.
+            Where champions predict, stake, and win. Experience the future of sports engagement with blockchain-powered kolises.
           </motion.p>
         </header>
 
@@ -1033,7 +1037,7 @@ export default function Coliseum() {
         </motion.section>
 
         <section>
-          <h2 className="text-xl font-semibold text-[#5C80AD] mb-4">Ongoing Coliseum Events</h2>
+          <h2 className="text-xl font-semibold text-red-400 mb-4">Ongoing Coliseum Events</h2>
           <EventFilters
             onFilterChange={setEventFilter}
             onSortChange={setEventSort}
@@ -1083,7 +1087,7 @@ export default function Coliseum() {
 
       <AnimatePresence>
         {selectedEvent?.type === 'Prediction' && (
-          <PredictionArenaModal arena={selectedEvent} onClose={() => setSelectedEvent(null)} currentUser={userProfile} />
+          <PredictionKOLISEModal kolise={selectedEvent} onClose={() => setSelectedEvent(null)} currentUser={userProfile} />
         )}
         {selectedEvent?.type === 'Faction' && (
           <FactionBattleModal faction={selectedEvent} onClose={() => setSelectedEvent(null)} currentUser={userProfile} />

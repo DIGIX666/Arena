@@ -1,5 +1,4 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import { WalletProvider } from './WalletContext';
 import "./globals.css";
 import { WalletProvider } from "./WalletContext";
 

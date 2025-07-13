@@ -32,8 +32,8 @@ const adminDuelsData = [
     title: "PSG vs Chelsea",
     subtitle: "Premier League Showdown",
     teams: [
-      { id: 'psg', name: 'PSG', logo: '/psg.png', color: '#004C98' },
-      { id: 'chelsea', name: 'Chelsea', logo: '/chelsea.png', color: '#034694' }
+      { id: 'psg', name: 'PSG', logo: '/psg.png', color: '#ffffffff' },
+      { id: 'chelsea', name: 'Chelsea', logo: '/chelsea.png', color: '#ffffffff' }
     ],
     outcomes: ["PSG Victory", "Chelsea Victory", "Draw"],
     chzPot: 500000,
@@ -115,18 +115,21 @@ const useSimulatedContract = (user) => {
 };
 
 const Navbar = () => (
-  <nav className="sticky top-0 z-50 px-4 sm:px-6 lg:px-8 py-4 bg-[#0a0b1e]/90 backdrop-blur-md border-b border-[#5C80AD]/30">
-    <div className="flex items-center justify-between max-w-7xl mx-auto">
-      <div className="text-2xl font-bold text-white">
-        ARENA DUELS
+  <nav className="flex items-center justify-between p-6 lg:px-12 relative z-10">
+      <div className="flex items-center">
+        <img 
+          src="/logo-kolize.png" 
+          alt="KOLISE Logo" 
+          className="h-50 w-auto ml-10"
+        />
       </div>
-      <div className="hidden md:flex items-center gap-8">
-        <Link href="/" className="text-gray-300 hover:text-[#5C80AD] transition-colors duration-200 font-medium">Home</Link>
-        <Link href="/coliseum" className="text-gray-300 hover:text-[#5C80AD] transition-colors duration-200 font-medium">Coliseum</Link>
-        <Link href="/duel" className="text-[#5C80AD] font-medium">Duels</Link>
-        
-        <Link href="/profile" className="text-gray-300 hover:text-[#5C80AD] transition-colors duration-200 font-medium">Profile</Link>
-      </div>
+    <div className="hidden md:flex items-center space-x-8">
+      <Link href="/" className="text-gray-300 hover:text-white transition-colors duration-300">Home</Link>
+      <Link href="/coliseum" className="text-gray-300 hover:text-white transition-colors duration-300">Coliseum</Link>
+      <Link href="/duel" className="text-red-400 font-medium">Duels</Link>
+      <Link href="/profile" className="text-gray-300 hover:text-white transition-colors duration-300">Profile</Link>
+    </div>
+    <div className="flex items-center space-x-4">
       <button className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-300">
         Connect Wallet
       </button>
@@ -136,12 +139,12 @@ const Navbar = () => (
 
 const UserDashboard = ({ user }) => (
   <div className="bg-white/5 rounded-xl p-6 border border-white/10">
-    <h2 className="text-xl font-semibold text-[#5C80AD] mb-6">Your Arena Stats</h2>
+    <h2 className="text-xl font-semibold text-red-400 mb-6">Your KOLISE Stats</h2>
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-      <StatCard icon={<Award size={18} className="text-[#5C80AD]" />} label="Points" value={user.points.toLocaleString()} />
+      <StatCard icon={<Award size={18} className="text-red-400" />} label="Points" value={user.points.toLocaleString()} />
       <StatCard icon={<Star size={18} className="text-white" />} label="Fan Tokens" value={user.fanTokens.toLocaleString()} />
-      <StatCard icon={<Zap size={18} className="text-[#5C80AD]" />} label="CHZ Balance" value={user.chzBalance.toFixed(2)} />
-      <StatCard icon={<Trophy size={18} className="text-yellow-400" />} label="Win Streak" value={user.winStreak} />
+      <StatCard icon={<Zap size={18} className="text-red-400" />} label="CHZ Balance" value={user.chzBalance.toFixed(2)} />
+      <StatCard icon={<Trophy size={18} className="text-red-400" />} label="Win Streak" value={user.winStreak} />
     </div>
   </div>
 );
@@ -152,7 +155,7 @@ const StatCard = ({ icon, label, value }) => (
     whileHover={{ scale: 1.03 }}
     whileTap={{ scale: 0.98 }}
   >
-    <div className="p-2 bg-[#5C80AD]/20 rounded-full">{icon}</div>
+    <div className="p-2 bg-red-600/20 rounded-full">{icon}</div>
     <div>
       <div className="text-sm text-gray-400">{label}</div>
       <div className="text-lg font-semibold text-white">{value}</div>
@@ -186,7 +189,7 @@ const CountdownTimer = ({ deadline }) => {
 
 const DuelCard = memo(function DuelCard({ duel, onSelect }) {
   const theme = {
-    color: 'text-[#5C80AD]',
+    color: 'text-red-400',
     bgColor: 'bg-white/5',
     borderColor: 'border-white/10'
   };
@@ -194,7 +197,7 @@ const DuelCard = memo(function DuelCard({ duel, onSelect }) {
   return (
     <motion.div
       onClick={() => onSelect(duel)}
-      className={`cursor-pointer rounded-xl p-5 relative overflow-hidden ${theme.bgColor} border ${theme.borderColor} hover:shadow-lg hover:shadow-[#5C80AD]/30 transition-all duration-300`}
+      className={`cursor-pointer rounded-xl p-5 relative overflow-hidden ${theme.bgColor} border ${theme.borderColor} hover:shadow-lg hover:shadow-red-500/30 transition-all duration-300`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0, transition: { duration: 0.4 } }}
       whileHover={{ scale: 1.03, rotate: 1 }}
@@ -206,18 +209,18 @@ const DuelCard = memo(function DuelCard({ duel, onSelect }) {
       
       <div className="flex justify-between items-start mb-4">
         <div>
-          <div className="inline-flex items-center gap-2 mb-2 text-xs font-medium text-[#5C80AD]">
+          <div className="inline-flex items-center gap-2 mb-2 text-xs font-medium text-red-400">
             <Swords size={14} />
-            Duel Arena
+            Duel KOLISE
           </div>
-          <h3 className="text-base font-semibold text-[#5C80AD]">{duel.title}</h3>
+          <h3 className="text-base font-semibold text-red-400">{duel.title}</h3>
           <p className="text-xs text-gray-400">{duel.subtitle}</p>
           <div className="mt-2">
             <CountdownTimer deadline={Date.now() + parseTimeLeft(duel.timeLeft)} />
           </div>
         </div>
         {duel.protectionTriggered && (
-          <ShieldCheck className="text-[#5C80AD] flex-shrink-0" title="Volatility Protection Active" size={18} />
+          <ShieldCheck className="text-red-400 flex-shrink-0" title="Volatility Protection Active" size={18} />
         )}
       </div>
       
@@ -238,7 +241,7 @@ const DuelCard = memo(function DuelCard({ duel, onSelect }) {
       
       <div className="flex justify-between text-xs text-gray-400 mb-4">
         <div className="flex items-center gap-1">
-          <Zap size={12} className="text-red-400" />
+          <Zap size={12} className="text-red-500" />
           <span>{duel.chzPot.toLocaleString()} CHZ</span>
         </div>
         <div className="flex items-center gap-1">
@@ -251,7 +254,7 @@ const DuelCard = memo(function DuelCard({ duel, onSelect }) {
         <div className="text-xs text-gray-400 mb-1">CHZ Prize Pool</div>
         <div className="w-full bg-white/10 rounded-full h-1.5">
           <div
-            className="bg-red-500 h-1.5 rounded-full transition-all duration-300 animate-pulse"
+            className="bg-red-600 h-1.5 rounded-full transition-all duration-300 animate-pulse"
             style={{ width: `${Math.min((duel.chzPot / 1000000) * 100, 100)}%` }}
           ></div>
         </div>
@@ -295,7 +298,7 @@ const DuelJoinModal = ({ duel, onClose, currentUser }) => {
       transition={{ duration: 0.3 }}
     >
       <motion.div
-        className="w-full max-w-md bg-[#0a0b1e]/90 border border-white/10 rounded-lg shadow-2xl shadow-[#5C80AD]/20"
+        className="w-full max-w-md bg-[#0a0b1e]/90 border border-white/10 rounded-lg shadow-2xl shadow-red-600/20"
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
@@ -303,12 +306,12 @@ const DuelJoinModal = ({ duel, onClose, currentUser }) => {
       >
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-semibold text-[#5C80AD]">{duel.title}</h2>
-            <button onClick={onClose} className="text-white hover:text-[#5C80AD] text-2xl focus:outline-none focus:ring-2 focus:ring-[#5C80AD] rounded-md w-8 h-8 flex items-center justify-center" aria-label="Close modal">×</button>
+            <h2 className="text-lg font-semibold text-red-600">{duel.title}</h2>
+            <button onClick={onClose} className="text-white hover:text-red-600 text-2xl focus:outline-none focus:ring-2 focus:ring-red-600 rounded-md w-8 h-8 flex items-center justify-center" aria-label="Close modal">×</button>
           </div>
           <p className="text-sm text-gray-400 mb-4">{duel.subtitle}</p>
           {duel.protectionTriggered && (
-            <div className="inline-flex items-center gap-2 text-xs text-[#5C80AD] bg-[#5C80AD]/10 px-3 py-1 rounded-full mb-4">
+            <div className="inline-flex items-center gap-2 text-xs text-red-600 bg-red-600/10 px-3 py-1 rounded-full mb-4">
               <ShieldCheck size={14} /> Volatility Protection Active
             </div>
           )}
@@ -320,8 +323,8 @@ const DuelJoinModal = ({ duel, onClose, currentUser }) => {
                   key={i}
                   onClick={() => setSelectedOutcome(o)}
                   className={`p-3 text-sm rounded-md border border-white/10 transition-all ${
-                    selectedOutcome === o ? 'bg-[#5C80AD] text-white' : 'bg-white/5 text-white hover:bg-white/10'
-                  } focus:ring-2 focus:ring-[#5C80AD] focus:outline-none`}
+                    selectedOutcome === o ? 'bg-red-600 text-white' : 'bg-white/5 text-white hover:bg-white/10'
+                  } focus:ring-2 focus:ring-red-600 focus:outline-none`}
                 >
                   {o}
                 </button>
@@ -331,16 +334,16 @@ const DuelJoinModal = ({ duel, onClose, currentUser }) => {
             <div className="bg-white/5 p-4 rounded-lg space-y-3 border border-white/10">
               <div className="flex justify-between items-center">
                 <label htmlFor="insurance-toggle" className="flex items-center gap-2 cursor-pointer">
-                  <ShieldCheck size={16} className={withInsurance ? "text-[#5C80AD]" : "text-gray-400"} />
+                  <ShieldCheck size={16} className={withInsurance ? "text-red-600" : "text-gray-400"} />
                   <span className="text-sm text-white">Volatility Insurance</span>
                   {hasEnoughFanTokensForFreeInsurance && (
-                    <span className="text-xs text-[#5C80AD] bg-[#5C80AD]/20 px-2 rounded-full">FREE</span>
+                    <span className="text-xs text-red-600 bg-red-600/20 px-2 rounded-full">FREE</span>
                   )}
                 </label>
                 <button
                   onClick={() => setWithInsurance(!withInsurance)}
                   disabled={hasEnoughFanTokensForFreeInsurance}
-                  className={`relative w-10 h-5 rounded-full transition-colors ${withInsurance ? 'bg-[#5C80AD]' : 'bg-white/20'} focus:ring-2 focus:ring-[#5C80AD] focus:outline-none`}
+                  className={`relative w-10 h-5 rounded-full transition-colors ${withInsurance ? 'bg-red-600' : 'bg-white/20'} focus:ring-2 focus:ring-red-600 focus:outline-none`}
                   aria-label="Toggle volatility insurance"
                   aria-checked={withInsurance}
                   role="switch"
@@ -369,7 +372,7 @@ const DuelJoinModal = ({ duel, onClose, currentUser }) => {
             <button
               onClick={handleJoinDuel}
               disabled={!selectedOutcome || transactionState === 'pending'}
-              className="w-full py-3 rounded-md font-medium bg-[#5C80AD] text-white flex items-center justify-center gap-2 hover:bg-[#4A8FE7] disabled:bg-white/10 disabled:text-gray-400 disabled:cursor-not-allowed focus:ring-2 focus:ring-[#5C80AD] focus:outline-none transition-all duration-200 min-h-[44px]"
+              className="w-full py-3 rounded-md font-medium bg-red-600 text-white flex items-center justify-center gap-2 hover:bg-[#4A8FE7] disabled:bg-white/10 disabled:text-gray-400 disabled:cursor-not-allowed focus:ring-2 focus:ring-red-600 focus:outline-none transition-all duration-200 min-h-[44px]"
               aria-describedby="duel-total-cost"
             >
               {transactionState === 'pending' && <Loader2 className="animate-spin" size={18} />}
@@ -434,9 +437,9 @@ const DragDropArena = ({ onCreateDuel }) => {
   return (
     <>
       <div className="bg-white/5 rounded-xl p-8 border border-white/10">
-        <h2 className="text-2xl font-semibold text-[#5C80AD] mb-6 text-center">Create Epic Duel</h2>
+        <h2 className="text-2xl font-semibold text-red-600 mb-6 text-center">Create Epic Duel</h2>
         <p className="text-center text-gray-400 mb-8">Drag the team logos to the center arena to create an epic duel!</p>
-        
+
         <div className="flex justify-between items-center relative h-64">
           <motion.div
             className="cursor-grab active:cursor-grabbing"
@@ -462,7 +465,7 @@ const DragDropArena = ({ onCreateDuel }) => {
             ref={dropZoneRef}
             className={`flex-1 mx-8 h-48 border-4 border-dashed rounded-full flex items-center justify-center transition-all duration-300 ${
               isInCenter 
-                ? 'border-[#5C80AD] bg-[#5C80AD]/20 scale-110' 
+                ? 'border-red-600 bg-red-600/20 scale-110' 
                 : 'border-white/30 bg-white/5'
             }`}
             onDragOver={handleDragOver}
@@ -475,9 +478,9 @@ const DragDropArena = ({ onCreateDuel }) => {
             >
               <Swords 
                 size={48} 
-                className={`mx-auto mb-2 ${isInCenter ? 'text-[#5C80AD]' : 'text-white/40'}`} 
+                className={`mx-auto mb-2 ${isInCenter ? 'text-red-600' : 'text-white/40'}`} 
               />
-              <p className={`font-semibold ${isInCenter ? 'text-[#5C80AD]' : 'text-white/40'}`}>
+              <p className={`font-semibold ${isInCenter ? 'text-red-600' : 'text-white/40'}`}>
                 {isInCenter ? 'Release to Create Duel!' : 'Duel Arena'}
               </p>
             </motion.div>
@@ -555,17 +558,17 @@ const DuelCreationModal = ({ team1, team2, onClose, onCreateDuel }) => {
       exit={{ opacity: 0 }}
     >
       <motion.div
-        className="w-full max-w-md bg-[#0a0b1e]/90 border border-white/10 rounded-lg shadow-2xl shadow-[#5C80AD]/20"
+        className="w-full max-w-md bg-[#0a0b1e]/90 border border-white/10 rounded-lg shadow-2xl shadow-red-600/20"
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
       >
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-semibold text-[#5C80AD]">Create Duel</h2>
-            <button onClick={onClose} className="text-white hover:text-[#5C80AD] text-2xl">×</button>
+            <h2 className="text-lg font-semibold text-red-600">Create Duel</h2>
+            <button onClick={onClose} className="text-white hover:text-red-600 text-2xl">×</button>
           </div>
-          
+
           <div className="space-y-6">
             <div className="flex items-center justify-center gap-6">
               <motion.div
@@ -582,14 +585,14 @@ const DuelCreationModal = ({ team1, team2, onClose, onCreateDuel }) => {
                 />
                 <p className="font-semibold" style={{ color: team1?.color }}>{team1?.name}</p>
               </motion.div>
-              
+
               <motion.div
                 animate={{ rotate: [0, 15, -15, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
               >
-                <Swords size={32} className="text-[#5C80AD]" />
+                <Swords size={32} className="text-red-600" />
               </motion.div>
-              
+
               <motion.div
                 className="text-center"
                 animate={{ scale: [1, 1.05, 1] }}
@@ -613,7 +616,7 @@ const DuelCreationModal = ({ team1, team2, onClose, onCreateDuel }) => {
                   onClick={() => setSelectedTeam(team1)}
                   className={`p-4 rounded-lg border transition-all ${
                     selectedTeam?.id === team1?.id
-                      ? 'border-[#5C80AD] bg-[#5C80AD]/20'
+                      ? 'border-red-600 bg-red-600/20'
                       : 'border-white/20 bg-white/5 hover:bg-white/10'
                   }`}
                 >
@@ -630,7 +633,7 @@ const DuelCreationModal = ({ team1, team2, onClose, onCreateDuel }) => {
                   onClick={() => setSelectedTeam(team2)}
                   className={`p-4 rounded-lg border transition-all ${
                     selectedTeam?.id === team2?.id
-                      ? 'border-[#5C80AD] bg-[#5C80AD]/20'
+                      ? 'border-red-600 bg-red-600/20'
                       : 'border-white/20 bg-white/5 hover:bg-white/10'
                   }`}
                 >
@@ -655,11 +658,11 @@ const DuelCreationModal = ({ team1, team2, onClose, onCreateDuel }) => {
                   max="1000"
                   value={stakeAmount}
                   onChange={(e) => setStakeAmount(parseInt(e.target.value))}
-                  className="w-full mb-3 accent-[#5C80AD]"
+                  className="w-full mb-3 accent-red-600"
                 />
                 <div className="flex justify-between text-sm text-gray-400">
                   <span>50 CHZ</span>
-                  <span className="text-[#5C80AD] font-semibold">{stakeAmount} CHZ</span>
+                  <span className="text-red-600 font-semibold">{stakeAmount} CHZ</span>
                   <span>1000 CHZ</span>
                 </div>
               </div>
@@ -668,13 +671,13 @@ const DuelCreationModal = ({ team1, team2, onClose, onCreateDuel }) => {
             <div className="bg-white/5 p-4 rounded-lg border border-white/10">
               <div className="flex justify-between items-center">
                 <label className="flex items-center gap-2">
-                  <ShieldCheck size={16} className={withInsurance ? "text-[#5C80AD]" : "text-gray-400"} />
+                  <ShieldCheck size={16} className={withInsurance ? "text-red-600" : "text-gray-400"} />
                   <span className="text-sm text-white">Volatility Insurance</span>
                 </label>
                 <button
                   onClick={() => setWithInsurance(!withInsurance)}
                   className={`relative w-10 h-5 rounded-full transition-colors ${
-                    withInsurance ? 'bg-[#5C80AD]' : 'bg-white/20'
+                    withInsurance ? 'bg-red-600' : 'bg-white/20'
                   }`}
                 >
                   <span
@@ -689,7 +692,7 @@ const DuelCreationModal = ({ team1, team2, onClose, onCreateDuel }) => {
             <button
               onClick={handleCreateDuel}
               disabled={!selectedTeam || transactionState === 'pending'}
-              className="w-full py-3 rounded-md font-medium bg-gradient-to-r from-[#5C80AD] to-[#4A8FE7] text-white flex items-center justify-center gap-2 hover:from-[#4A8FE7] hover:to-[#5C80AD] disabled:bg-gray-500 disabled:cursor-not-allowed transition-all duration-200"
+              className="w-full py-3 rounded-md font-medium bg-gradient-to-r from-red-600 to-[#4A8FE7] text-white flex items-center justify-center gap-2 hover:from-[#4A8FE7] hover:to-red-600 disabled:bg-gray-500 disabled:cursor-not-allowed transition-all duration-200"
             >
               {transactionState === 'pending' && <Loader2 className="animate-spin" size={18} />}
               {transactionState === 'success' && <CheckCircle size={18} />}
@@ -742,25 +745,7 @@ export default function Duels() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden">
-       {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-10 w-3 h-3 bg-red-500 rounded-full animate-pulse opacity-60"></div>
-        <div className="absolute top-40 right-20 w-2 h-2 bg-red-400 rounded-full animate-pulse delay-300 opacity-40"></div>
-        <div className="absolute bottom-20 left-20 w-4 h-4 bg-red-500 rounded-full animate-pulse delay-700 opacity-50"></div>
-        <div className="absolute bottom-40 right-10 w-9 h-8 bg-red-400 rounded-full animate-pulse delay-1000 opacity-30"></div>
-        <div className="absolute top-1/2 left-1/4 w-2 h-2 bg-red-500 rounded-full animate-pulse delay-500 opacity-40"></div>
-        <div className="absolute top-1/3 right-1/3 w-3 h-3 bg-red-400 rounded-full animate-pulse delay-200 opacity-30"></div>
-        <div className="absolute bottom-1/3 left-1/3 w-2 h-2 bg-red-500 rounded-full animate-pulse delay-800 opacity-50"></div>
-        <div className="absolute top-3/4 right-1/4 w-3 h-3 bg-red-400 rounded-full animate-pulse delay-400 opacity-40"></div>
-        
-        {/* Geometric Lines */}
-        <div className="absolute top-1/4 right-5 w-62 h-62 border border-red-500/20 transform rotate-45"></div>
-        <div className="absolute bottom-1/4 left-20 w-24 h-24 border border-red-400/15 transform rotate-12"></div>
-        <div className="absolute top-1/3 left-1/2 w-20 h-20 border border-red-500/10 transform -rotate-30"></div>
-      </div>
-      <div className="absolute inset-0 overflow-hidden">
-      </div>
+    <div className="min-h-screen bg-black from-[#0a0b1e] via-[#1a1b3e] to-[#0a0b1e] text-white">
       <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
@@ -770,7 +755,7 @@ export default function Duels() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            Epic <span className="text-[#5C80AD]">Duels</span>
+            Epic <span className="text-red-500">Duels</span>
           </motion.h1>
           <motion.p
             className="text-lg text-gray-300 max-w-2xl mx-auto"
@@ -795,7 +780,7 @@ export default function Duels() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          <h2 className="text-xl font-semibold text-[#5C80AD] mb-4">Ongoing Duels</h2>
+          <h2 className="text-xl font-semibold text-white mb-4">Ongoing Duels</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {adminDuelsData.map(duel => (
               <DuelCard key={duel.id} duel={duel} onSelect={handleSelectDuel} />
@@ -811,7 +796,7 @@ export default function Duels() {
           <div className="text-center mb-6">
             <button
               onClick={() => setShowDragDrop(!showDragDrop)}
-              className="px-6 py-3 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 transition-all duration-200 focus:ring-2 focus:ring-red-600 focus:outline-none"
+              className="px-6 py-3 bg-red-600 text-white rounded-md text-sm font-medium hover:bg-red-900 transition-all duration-200 focus:ring-2  focus:outline-none"
             >
               {showDragDrop ? 'Hide Duel Creator' : 'Create a Duel'}
             </button>

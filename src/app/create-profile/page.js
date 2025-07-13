@@ -23,7 +23,7 @@ export default function CreateProfile() {
 
     try {
       await createProfile(username);
-      router.push('/dashboard');
+      router.push('/profile');
     } catch (error) {
       if (error.reason) {
         setError(error.reason);

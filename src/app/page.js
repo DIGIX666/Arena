@@ -1,3 +1,4 @@
+import Link from 'next/link';
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0a0b1e] via-[#1a1b3e] to-[#0a0b1e] text-white relative overflow-hidden">
@@ -8,7 +9,8 @@ export default function Home() {
         </div>
         <div className="hidden md:flex items-center space-x-8">
           <a href="#" className="hover:text-[#5C80AD] transition-colors">Discover</a>
-          <a href="#" className="hover:text-[#5C80AD] transition-colors">Business</a>
+          <Link href="/coliseum" className="hover:text-[#5C80AD] transition-colors">Coliseum</Link>
+          <Link href="/duel" className="hover:text-[#5C80AD] transition-colors">Duels</Link>
           <a href="#" className="hover:text-[#5C80AD] transition-colors">Builders</a>
           <a href="#" className="hover:text-[#5C80AD] transition-colors">Community</a>
           <a href="#" className="hover:text-[#5C80AD] transition-colors">About</a>
@@ -86,7 +88,7 @@ export default function Home() {
       <section className="px-6 lg:px-12 pb-20">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Discover ARENA Network's <span className="text-[#5C80AD]">Products</span>
+            Discover ARENA Network&apos;s <span className="text-[#5C80AD]">Products</span>
           </h2>
           <p className="text-gray-300 max-w-2xl mx-auto">
             The first blockchain platform built with Shariah values in mind. Designed with ease of use
